@@ -9,7 +9,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// ResourceDigitalOceanAgent defines the DigitalOcean Agent resource.
+// ResourceDigitalOceanAgent defines the DigitalOcean GenAI Agent resource.
+// This resource allows you to create and manage AI agents with customizable models,
+// knowledge bases, and deployment configurations for intelligent automation.
 func ResourceDigitalOceanAgent() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceDigitalOceanAgentCreate,
@@ -24,7 +26,7 @@ func ResourceDigitalOceanAgent() *schema.Resource {
 			"name": {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "Name of the Agent",
+				Description: "Name of the GenAI Agent. Must be unique within your project.",
 			},
 			"instruction": {
 				Type:        schema.TypeString,
