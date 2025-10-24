@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_custom_image",
 		F:    sweepCustomImage,
 	})
-
 }
 
 func sweepCustomImage(region string) error {

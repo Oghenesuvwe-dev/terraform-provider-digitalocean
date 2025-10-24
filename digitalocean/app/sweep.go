@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_app",
 		F:    sweepApp,
 	})
-
 }
 
 func sweepApp(region string) error {

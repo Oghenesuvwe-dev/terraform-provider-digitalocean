@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_certificate",
 		F:    sweepCertificate,
 	})
-
 }
 
 func sweepCertificate(region string) error {

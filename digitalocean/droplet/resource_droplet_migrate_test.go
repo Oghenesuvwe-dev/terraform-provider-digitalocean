@@ -44,7 +44,6 @@ func TestDigitalOceanDropletMigrateState(t *testing.T) {
 			Attributes: tc.Attributes,
 		}
 		is, err := droplet.ResourceDigitalOceanDropletMigrateState(tc.StateVersion, is, nil)
-
 		if err != nil {
 			t.Fatalf("bad: %q, err: %#v", tn, err)
 		}

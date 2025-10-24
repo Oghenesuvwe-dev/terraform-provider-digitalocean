@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_database_cluster",
 		F:    testSweepDatabaseCluster,
 	})
-
 }
 
 func testSweepDatabaseCluster(region string) error {

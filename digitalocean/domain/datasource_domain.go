@@ -13,7 +13,6 @@ func DataSourceDigitalOceanDomain() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanDomainRead,
 		Schema: map[string]*schema.Schema{
-
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,

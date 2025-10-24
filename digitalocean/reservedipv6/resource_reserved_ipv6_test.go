@@ -73,7 +73,6 @@ func testAccCheckDigitalOceanReservedIPV6Exists(n string, reservedIPv6 *godo.Res
 
 		// Try to find the ReservedIPv6
 		foundReservedIP, _, err := client.ReservedIPV6s.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

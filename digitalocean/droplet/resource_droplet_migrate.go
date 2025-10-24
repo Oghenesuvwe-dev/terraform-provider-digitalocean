@@ -8,7 +8,6 @@ import (
 )
 
 func ResourceDigitalOceanDropletMigrateState(v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
-
 	switch v {
 	case 0:
 		log.Println("[INFO] Found DigitalOcean Droplet State v0; migrating to v1")

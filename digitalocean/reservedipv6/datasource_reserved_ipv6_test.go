@@ -76,7 +76,6 @@ func testAccCheckDataSourceDigitalOceanReservedIPV6Exists(n string, reservedIPv6
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundReservedIP, _, err := client.ReservedIPV6s.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

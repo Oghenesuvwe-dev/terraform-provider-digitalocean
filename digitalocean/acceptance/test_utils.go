@@ -22,6 +22,5 @@ func TestResourceInstanceState(name string, check func(*terraform.InstanceState)
 		} else {
 			return fmt.Errorf("Not found: %s", name)
 		}
-
 	}
 }

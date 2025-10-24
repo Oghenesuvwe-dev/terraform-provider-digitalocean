@@ -129,7 +129,6 @@ func testAccCheckDigitalOceanUptimeAlertExists(resource string) resource.TestChe
 		}
 
 		foundUptimeAlert, _, err := client.UptimeChecks.GetAlert(context.Background(), checkID, rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
@@ -156,7 +155,6 @@ func getCheckID(resource string, s *terraform.State) (error, string) {
 	}
 
 	foundUptimeCheck, _, err := client.UptimeChecks.Get(context.Background(), rs.Primary.ID)
-
 	if err != nil {
 		return err, ""
 	}

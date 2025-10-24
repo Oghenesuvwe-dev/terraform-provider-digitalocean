@@ -10,7 +10,6 @@ import (
 )
 
 func DataSourceDigitalOceanAgent() *schema.Resource {
-
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanAgentRead,
 		Schema:      AgentSchemaRead(),

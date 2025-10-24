@@ -74,7 +74,6 @@ func testAccCheckDataSourceDigitalOceanDatabaseClusterExists(n string, databaseC
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundCluster, _, err := client.Databases.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

@@ -72,7 +72,6 @@ func resourceDigitalOceanContainerRegistryDockerCredentialsRead(ctx context.Cont
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	reg, response, err := client.Registry.Get(context.Background())
-
 	if err != nil {
 		if response != nil && response.StatusCode == 404 {
 			return diag.Errorf("registry not found: %s", err)

@@ -817,7 +817,6 @@ resource "digitalocean_droplet" "foobar" {
 
 func testAccCheckDigitalOceanDropletAttributes(droplet *godo.Droplet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-
 		if droplet.URN() != fmt.Sprintf("do:droplet:%d", droplet.ID) {
 			return fmt.Errorf("Bad URN: %s", droplet.URN())
 		}
@@ -848,7 +847,6 @@ func testAccCheckDigitalOceanDropletAttributes(droplet *godo.Droplet) resource.T
 
 func testAccCheckDigitalOceanDropletRenamedAndResized(droplet *godo.Droplet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-
 		if droplet.Size.Slug != "s-1vcpu-2gb" {
 			return fmt.Errorf("Bad size_slug: %s", droplet.SizeSlug)
 		}
@@ -863,7 +861,6 @@ func testAccCheckDigitalOceanDropletRenamedAndResized(droplet *godo.Droplet) res
 
 func testAccCheckDigitalOceanDropletResizeWithOutDisk(droplet *godo.Droplet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-
 		if droplet.Size.Slug != "s-1vcpu-2gb" {
 			return fmt.Errorf("Bad size_slug: %s", droplet.SizeSlug)
 		}
@@ -878,7 +875,6 @@ func testAccCheckDigitalOceanDropletResizeWithOutDisk(droplet *godo.Droplet) res
 
 func testAccCheckDigitalOceanDropletResizeSmaller(droplet *godo.Droplet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-
 		if droplet.Size.Slug != "s-1vcpu-2gb" {
 			return fmt.Errorf("Bad size_slug: %s", droplet.SizeSlug)
 		}
@@ -893,7 +889,6 @@ func testAccCheckDigitalOceanDropletResizeSmaller(droplet *godo.Droplet) resourc
 
 func testAccCheckDigitalOceanDropletAttributes_PrivateNetworkingIpv6(d *godo.Droplet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-
 		if d.Image.Slug != "ubuntu-22-04-x64" {
 			return fmt.Errorf("Bad image_slug: %s", d.Image.Slug)
 		}
@@ -933,7 +928,8 @@ func testAccCheckDigitalOceanDropletAttributes_PrivateNetworkingIpv6(d *godo.Dro
 }
 
 func testAccCheckDigitalOceanDropletRecreated(t *testing.T,
-	before, after *godo.Droplet) resource.TestCheckFunc {
+	before, after *godo.Droplet,
+) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if before.ID == after.ID {
 			t.Fatalf("Expected change of droplet IDs, but both were %v", before.ID)

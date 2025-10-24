@@ -167,7 +167,6 @@ func resourceDigitalOceanAlertDestinationUpdate(appID string, existingAlerts, sc
 				Emails:        schemaAlert.Emails,
 				SlackWebhooks: schemaAlert.SlackWebhooks,
 			})
-
 			if err != nil {
 				return err
 			}
@@ -279,7 +278,7 @@ func resourceDigitalOceanAppDelete(ctx context.Context, d *schema.ResourceData, 
 }
 
 func waitForAppDeployment(client *godo.Client, id string, timeout time.Duration) error {
-	tickerInterval := 10 //10s
+	tickerInterval := 10 // 10s
 	timeoutSeconds := int(timeout.Seconds())
 	n := 0
 

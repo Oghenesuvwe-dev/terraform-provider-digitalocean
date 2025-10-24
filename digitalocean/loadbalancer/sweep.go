@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_loadbalancer",
 		F:    sweepLoadbalancer,
 	})
-
 }
 
 func sweepLoadbalancer(region string) error {

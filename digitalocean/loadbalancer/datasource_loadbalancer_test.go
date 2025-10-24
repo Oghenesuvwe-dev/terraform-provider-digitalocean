@@ -620,6 +620,7 @@ data "digitalocean_loadbalancer" "foobar" {
 		},
 	})
 }
+
 func TestAccDataSourceDigitalOceanGlobalLoadBalancer(t *testing.T) {
 	var loadbalancer godo.LoadBalancer
 	testName := acceptance.RandomTestName()
@@ -687,7 +688,6 @@ func testAccCheckDataSourceDigitalOceanLoadBalancerExists(n string, loadbalancer
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundLoadbalancer, _, err := client.LoadBalancers.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

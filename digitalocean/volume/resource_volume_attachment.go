@@ -54,7 +54,6 @@ func resourceDigitalOceanVolumeAttachmentCreate(ctx context.Context, d *schema.R
 
 		// Only one volume can be attached at one time to a single droplet.
 		err := retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
-
 			log.Printf("[DEBUG] Attaching Volume (%s) to Droplet (%d)", volumeId, dropletId)
 			action, _, err := client.StorageActions.Attach(context.Background(), volumeId, dropletId)
 			if err != nil {
@@ -75,7 +74,6 @@ func resourceDigitalOceanVolumeAttachmentCreate(ctx context.Context, d *schema.R
 
 			return nil
 		})
-
 		if err != nil {
 			return diag.Errorf("Error attaching volume to droplet after retry timeout: %s", err)
 		}
@@ -120,7 +118,6 @@ func resourceDigitalOceanVolumeAttachmentDelete(ctx context.Context, d *schema.R
 
 	// Only one volume can be detached at one time to a single droplet.
 	err := retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
-
 		log.Printf("[DEBUG] Detaching Volume (%s) from Droplet (%d)", volumeId, dropletId)
 		action, _, err := client.StorageActions.DetachByDropletID(context.Background(), volumeId, dropletId)
 		if err != nil {
@@ -141,7 +138,6 @@ func resourceDigitalOceanVolumeAttachmentDelete(ctx context.Context, d *schema.R
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Error detaching volume from droplet after retry timeout: %s", err)
 	}

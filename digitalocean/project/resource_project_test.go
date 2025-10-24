@@ -14,7 +14,6 @@ import (
 )
 
 func TestAccDigitalOceanProject_CreateWithDefaults(t *testing.T) {
-
 	expectedName := generateProjectName()
 	createConfig := fixtureCreateWithDefaults(expectedName)
 
@@ -116,7 +115,6 @@ func TestAccDigitalOceanProject_CreateWithIsDefault(t *testing.T) {
 }
 
 func TestAccDigitalOceanProject_CreateWithInitialValues(t *testing.T) {
-
 	expectedName := generateProjectName()
 	expectedDescription := "A simple project for a web app."
 	expectedPurpose := "My Basic Web App"
@@ -149,7 +147,6 @@ func TestAccDigitalOceanProject_CreateWithInitialValues(t *testing.T) {
 }
 
 func TestAccDigitalOceanProject_UpdateWithInitialValues(t *testing.T) {
-
 	expectedName := generateProjectName()
 	expectedDesc := "A simple project for a web app."
 	expectedPurpose := "My Basic Web App"
@@ -204,7 +201,6 @@ func TestAccDigitalOceanProject_UpdateWithInitialValues(t *testing.T) {
 }
 
 func TestAccDigitalOceanProject_CreateWithDropletResource(t *testing.T) {
-
 	expectedName := generateProjectName()
 	expectedDropletName := generateDropletName()
 
@@ -242,7 +238,6 @@ func TestAccDigitalOceanProject_CreateWithDropletResource(t *testing.T) {
 }
 
 func TestAccDigitalOceanProject_CreateWithUnacceptedResourceExpectError(t *testing.T) {
-
 	expectedName := generateProjectName()
 	vpcName := acceptance.RandomTestName()
 	vpcDesc := "A description for the VPC"
@@ -263,7 +258,6 @@ func TestAccDigitalOceanProject_CreateWithUnacceptedResourceExpectError(t *testi
 }
 
 func TestAccDigitalOceanProject_UpdateWithDropletResource(t *testing.T) {
-
 	expectedName := generateProjectName()
 	expectedDropletName := generateDropletName()
 
@@ -390,11 +384,9 @@ func testAccCheckDigitalOceanProjectResourceURNIsPresent(resource, expectedURN s
 		}
 
 		for _, v := range projectResources {
-
 			if v.URN == expectedURN {
 				return nil
 			}
-
 		}
 
 		return nil
@@ -434,7 +426,6 @@ func testAccCheckDigitalOceanProjectExists(resource string) resource.TestCheckFu
 		}
 
 		foundProject, _, err := client.Projects.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
@@ -494,7 +485,6 @@ resource "digitalocean_project" "myproj" {
   name      = "%s"
   resources = [digitalocean_droplet.foobar.urn]
 }`, dropletName, name)
-
 }
 
 func fixtureCreateWithUnacceptedResource(vpcName, vpcDesc, name string) string {
@@ -509,7 +499,6 @@ resource "digitalocean_project" "myproj" {
   name      = "%s"
   resources = [digitalocean_vpc.foobar.urn]
 }`, vpcName, vpcDesc, name)
-
 }
 
 func fixtureCreateWithSpacesResource(spacesBucketName, name string) string {
@@ -524,7 +513,6 @@ resource "digitalocean_project" "myproj" {
   name      = "%s"
   resources = [digitalocean_spaces_bucket.foobar.urn]
 }`, spacesBucketName, name)
-
 }
 
 func fixtureCreateDomainResources(domainBase string) string {

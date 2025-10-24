@@ -107,7 +107,6 @@ func resourceDigitalOceanVPCPeeringCreate(ctx context.Context, d *schema.Resourc
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -166,7 +165,6 @@ func resourceDigitalOceanVPCPeeringDelete(ctx context.Context, d *schema.Resourc
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.FromErr(err)
 	}

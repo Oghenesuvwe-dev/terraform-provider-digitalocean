@@ -656,7 +656,6 @@ func testAccCheckDigitalOceanKubernetesNodePoolExists(n string, cluster *godo.Ku
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundPool, _, err := client.Kubernetes.GetNodePool(context.Background(), cluster.ID, rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

@@ -150,6 +150,7 @@ func ResourceDigitalOceanAgentKnowledgeBaseAttachment() *schema.Resource {
 		},
 	}
 }
+
 func resourceDigitalOceanKnowledgeBaseCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 

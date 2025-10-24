@@ -23,7 +23,6 @@ func DataSourceDigitalOceanAgents() *schema.Resource {
 }
 
 func DataSourceDigitalOceanAgentVersions() *schema.Resource {
-
 	dataListConfig := &datalist.ResourceConfig{
 		RecordSchema:        AgentVersionSchemaRead(),
 		ResultAttributeName: "agent_versions",

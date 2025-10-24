@@ -1325,7 +1325,6 @@ func testAccCheckDigitalOceanKubernetesClusterExists(n string, cluster *godo.Kub
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundCluster, _, err := client.Kubernetes.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
@@ -1401,7 +1400,6 @@ users:
 	kubeConfigRendered, err := kubernetes.RenderKubeconfig("test-cluster", "lon1", &creds)
 	if err != nil {
 		t.Errorf("error calling renderKubeconfig: %s", err)
-
 	}
 	got := string(kubeConfigRendered)
 

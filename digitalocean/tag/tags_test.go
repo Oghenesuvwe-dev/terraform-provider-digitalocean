@@ -130,6 +130,7 @@ func TestExpandTags(t *testing.T) {
 		t.Fatalf("incorrect expected length of expanded tags")
 	}
 }
+
 func TestFlattenTags(t *testing.T) {
 	tags := []string{"foo", "bar"}
 

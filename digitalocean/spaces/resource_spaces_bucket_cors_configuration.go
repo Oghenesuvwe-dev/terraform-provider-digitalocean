@@ -94,7 +94,6 @@ func resourceDigitalOceanBucketCorsConfigurationCreate(ctx context.Context, d *s
 
 	log.Printf("[DEBUG] Trying to configure CORS for Spaces bucket: %s", bucket)
 	_, err = conn.PutBucketCorsWithContext(ctx, input)
-
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok && awsErr.Code() == "NoSuchKey" {
 			return diag.Errorf("Unable to configure CORS for Spaces bucket because the bucket does not exist: '%s'", bucket)
@@ -116,7 +115,6 @@ func resourceDigitalOceanBucketCorsConfigurationRead(ctx context.Context, d *sch
 	response, err := conn.GetBucketCorsWithContext(ctx, &s3.GetBucketCorsInput{
 		Bucket: aws.String(d.Id()),
 	})
-
 	if err != nil {
 		return diag.Errorf("Error occurred while fetching Spaces bucket CORS configuration: %s", err)
 	}
@@ -146,7 +144,6 @@ func resourceBucketCorsConfigurationDelete(ctx context.Context, d *schema.Resour
 	_, err = conn.DeleteBucketCorsWithContext(ctx, &s3.DeleteBucketCorsInput{
 		Bucket: aws.String(bucket),
 	})
-
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok && awsErr.Code() == "BucketDeleted" {
 			return diag.Errorf("Unable to remove Spaces bucket CORS configuration because bucket '%s' is already deleted", bucket)
@@ -154,7 +151,6 @@ func resourceBucketCorsConfigurationDelete(ctx context.Context, d *schema.Resour
 		return diag.Errorf("Error occurred while deleting Spaces Bucket CORS configuration: %s", err)
 	}
 	return nil
-
 }
 
 func s3connFromSpacesBucketCorsResourceData(d *schema.ResourceData, meta interface{}) (*s3.S3, error) {

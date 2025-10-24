@@ -26,7 +26,6 @@ func ResourceDigitalOceanFirewall() *schema.Resource {
 		Schema: firewallSchema(),
 
 		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
 			inboundRules, hasInbound := diff.GetOk("inbound_rule")
 			outboundRules, hasOutbound := diff.GetOk("outbound_rule")
 

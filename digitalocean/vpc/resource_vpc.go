@@ -120,7 +120,6 @@ func resourceDigitalOceanVPCRead(ctx context.Context, d *schema.ResourceData, me
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	vpc, resp, err := client.VPCs.Get(context.Background(), d.Id())
-
 	if err != nil {
 		if resp != nil && resp.StatusCode == 404 {
 			log.Printf("[DEBUG] VPC  (%s) was not found - removing from state", d.Id())
@@ -152,7 +151,6 @@ func resourceDigitalOceanVPCUpdate(ctx context.Context, d *schema.ResourceData, 
 			Default:     godo.PtrTo(d.Get("default").(bool)),
 		}
 		_, _, err := client.VPCs.Update(context.Background(), d.Id(), vpcUpdateRequest)
-
 		if err != nil {
 			return diag.Errorf("Error updating VPC : %s", err)
 		}

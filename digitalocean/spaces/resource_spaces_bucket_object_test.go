@@ -44,6 +44,7 @@ func TestAccDigitalOceanSpacesBucketObject_noNameNoKey(t *testing.T) {
 		},
 	})
 }
+
 func TestAccDigitalOceanSpacesBucketObject_empty(t *testing.T) {
 	var obj s3.GetObjectOutput
 	resourceName := "digitalocean_spaces_bucket_object.object"
@@ -544,7 +545,6 @@ func testAccCheckDigitalOceanSpacesBucketObjectAcl(n string, expectedPerms []str
 			Bucket: aws.String(rs.Primary.Attributes["bucket"]),
 			Key:    aws.String(rs.Primary.Attributes["key"]),
 		})
-
 		if err != nil {
 			return fmt.Errorf("GetObjectAcl error: %v", err)
 		}

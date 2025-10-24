@@ -104,7 +104,6 @@ func testAccCheckDataSourceDigitalOceanVolumeExists(n string, volume *godo.Volum
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundVolume, _, err := client.Storage.GetVolume(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

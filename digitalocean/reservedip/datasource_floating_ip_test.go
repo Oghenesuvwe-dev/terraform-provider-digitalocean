@@ -52,7 +52,6 @@ func testAccCheckDataSourceDigitalOceanFloatingIpExists(n string, floatingIp *go
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundFloatingIp, _, err := client.FloatingIPs.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

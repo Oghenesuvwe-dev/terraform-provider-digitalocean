@@ -63,7 +63,6 @@ func getDigitalOceanProjects(meta interface{}, extra map[string]interface{}) ([]
 
 	for {
 		projects, resp, err := client.Projects.List(context.Background(), opts)
-
 		if err != nil {
 			return nil, fmt.Errorf("Error retrieving projects: %s", err)
 		}

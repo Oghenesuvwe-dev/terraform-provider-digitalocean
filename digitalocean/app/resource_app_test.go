@@ -1024,7 +1024,6 @@ func testAccCheckDigitalOceanAppExists(n string, app *godo.App) resource.TestChe
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundApp, _, err := client.Apps.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
@@ -1191,6 +1190,7 @@ func TestAccDigitalOceanApp_termination(t *testing.T) {
 		},
 	})
 }
+
 func TestAccDigitalOceanApp_VPC(t *testing.T) {
 	var app godo.App
 	appName := acceptance.RandomTestName()

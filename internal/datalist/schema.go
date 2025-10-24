@@ -157,7 +157,6 @@ func computeSortKeys(recordSchema map[string]*schema.Schema) []string {
 	}
 
 	return sortKeys
-
 }
 
 // Validate a ResourceConfig to ensure it conforms to this package's assumptions.

@@ -10,7 +10,6 @@ import (
 )
 
 func DataSourceDigitalOceanOpenAIApiKey() *schema.Resource {
-
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanOpenAIApiKeyRead,
 		Schema:      OpenAIApiKeySchemaRead(),

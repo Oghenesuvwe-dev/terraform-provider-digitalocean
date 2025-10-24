@@ -15,7 +15,7 @@ func TestAccDigitalOceanDatabaseOnlineMigration_Basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:          func() { acceptance.TestAccPreCheck(t) },
 		ProviderFactories: acceptance.TestAccProviderFactories,
-		//CheckDestroy:      testAccCheckDigitalOceanDatabaseClusterDestroy,
+		// CheckDestroy:      testAccCheckDigitalOceanDatabaseClusterDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: fmt.Sprintf(testAccCheckDigitalOceanDatabaseOnlineMigrationBasic, source, "8", destination, "8"),

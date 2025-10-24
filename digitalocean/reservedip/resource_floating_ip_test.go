@@ -108,7 +108,6 @@ func testAccCheckDigitalOceanFloatingIPExists(n string, floatingIP *godo.Floatin
 
 		// Try to find the FloatingIP
 		foundFloatingIP, _, err := client.FloatingIPs.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

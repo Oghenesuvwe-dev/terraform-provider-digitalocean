@@ -139,7 +139,7 @@ func waitForOnlineMigration(ctx context.Context, client *godo.Client, d *schema.
 		return "", diag.Errorf("Error here: %s", clusterID)
 	}
 
-	tickerInterval := 10 //10s
+	tickerInterval := 10 // 10s
 	timeoutSeconds := 90
 	n := 0
 	ticker := time.NewTicker(time.Duration(tickerInterval) * time.Second)

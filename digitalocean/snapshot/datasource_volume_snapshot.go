@@ -93,7 +93,6 @@ func dataSourceDigitalOceanVolumeSnapshotRead(ctx context.Context, d *schema.Res
 
 	for {
 		snapshots, resp, err := client.Snapshots.ListVolume(context.Background(), opts)
-
 		if err != nil {
 			return diag.Errorf("Error retrieving volume snapshots: %s", err)
 		}

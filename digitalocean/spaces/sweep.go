@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_spaces_bucket",
 		F:    sweepSpaces,
 	})
-
 }
 
 func sweepSpaces(region string) error {

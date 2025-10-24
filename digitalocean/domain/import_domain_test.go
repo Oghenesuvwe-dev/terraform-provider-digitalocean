@@ -26,7 +26,8 @@ func TestAccDigitalOceanDomain_importBasic(t *testing.T) {
 				ImportState:       true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"ip_address"}, //we ignore the IP Address as we do not set to state
+					"ip_address",
+				}, // we ignore the IP Address as we do not set to state
 			},
 		},
 	})

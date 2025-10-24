@@ -189,7 +189,6 @@ func testAccCheckDataSourceDigitalOceanDropletExists(n string, droplet *godo.Dro
 		}
 
 		foundDroplet, _, err := client.Droplets.Get(context.Background(), id)
-
 		if err != nil {
 			return err
 		}

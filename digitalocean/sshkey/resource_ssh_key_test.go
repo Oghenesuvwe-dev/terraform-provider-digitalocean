@@ -86,7 +86,6 @@ func testAccCheckDigitalOceanSSHKeyExists(n string, key *godo.Key) resource.Test
 
 		// Try to find the key
 		foundKey, _, err := client.Keys.GetByID(context.Background(), id)
-
 		if err != nil {
 			return err
 		}

@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_monitor_alert",
 		F:    sweepMonitoringAlerts,
 	})
-
 }
 
 func sweepMonitoringAlerts(region string) error {
