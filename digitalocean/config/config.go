@@ -57,7 +57,8 @@ func (c *CombinedConfig) SpacesClient(region string) (*session.Session, error) {
 	client, err := session.NewSession(&aws.Config{
 		Region:      aws.String("us-east-1"),
 		Credentials: credentials.NewStaticCredentials(c.accessID, c.secretKey, ""),
-		Endpoint:    aws.String(endpoint)},
+		Endpoint:    aws.String(endpoint),
+	},
 	)
 	if err != nil {
 		return &session.Session{}, err

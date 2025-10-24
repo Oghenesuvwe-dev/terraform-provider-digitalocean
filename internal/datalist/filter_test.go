@@ -87,6 +87,7 @@ func sizesTestSchema() map[string]*schema.Schema {
 		},
 	}
 }
+
 func sizesTestData() []map[string]interface{} {
 	return []map[string]interface{}{
 		{

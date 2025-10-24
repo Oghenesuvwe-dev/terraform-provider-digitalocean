@@ -157,7 +157,6 @@ func resourceDigitalOceanOpenAIApiKeyUpdate(ctx context.Context, d *schema.Resou
 	}
 
 	return resourceDigitalOceanOpenAIApiKeyRead(ctx, d, meta)
-
 }
 
 func resourceDigitalOceanOpenAIApiKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {

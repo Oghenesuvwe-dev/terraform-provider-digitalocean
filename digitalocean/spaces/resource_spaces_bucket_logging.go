@@ -85,7 +85,6 @@ func resourceSpacesBucketLoggingCreate(ctx context.Context, d *schema.ResourceDa
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Error enabling Spaces access logging: %s", err)
 	}

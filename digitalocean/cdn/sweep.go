@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_cdn",
 		F:    sweepCDN,
 	})
-
 }
 
 func sweepCDN(region string) error {

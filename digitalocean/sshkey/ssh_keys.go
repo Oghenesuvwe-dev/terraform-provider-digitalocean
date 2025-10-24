@@ -42,7 +42,6 @@ func getDigitalOceanSshKeys(meta interface{}, extra map[string]interface{}) ([]i
 
 	for {
 		keys, resp, err := client.Keys.List(context.Background(), opts)
-
 		if err != nil {
 			return nil, fmt.Errorf("Error retrieving ssh keys: %s", err)
 		}

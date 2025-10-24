@@ -10,7 +10,6 @@ import (
 )
 
 func DataSourceDigitalOceanKnowledgeBase() *schema.Resource {
-
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanKnowledgeBasesRead,
 		Schema:      KnowledgeBaseSchemaRead(),

@@ -111,7 +111,6 @@ func ResourceDigitalOceanVolume() *schema.Resource {
 		},
 
 		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
 			// if the new size of the volume is smaller than the old one return an error since
 			// only expanding the volume is allowed
 			oldSize, newSize := diff.GetChange("size")

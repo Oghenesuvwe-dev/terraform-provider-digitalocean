@@ -15,7 +15,6 @@ import (
 const originSuffix = ".ams3.digitaloceanspaces.com"
 
 func TestAccDigitalOceanCDN_Create(t *testing.T) {
-
 	bucketName := generateBucketName()
 	cdnCreateConfig := fmt.Sprintf(testAccCheckDigitalOceanCDNConfig_Create, bucketName)
 
@@ -72,7 +71,6 @@ func TestAccDigitalOceanCDN_CreateWithNeedCloudflareCert(t *testing.T) {
 }
 
 func TestAccDigitalOceanCDN_Create_with_TTL(t *testing.T) {
-
 	bucketName := generateBucketName()
 	ttl := 600
 	cdnCreateConfig := fmt.Sprintf(testAccCheckDigitalOceanCDNConfig_Create_with_TTL, bucketName, ttl)
@@ -99,7 +97,6 @@ func TestAccDigitalOceanCDN_Create_with_TTL(t *testing.T) {
 }
 
 func TestAccDigitalOceanCDN_Create_and_Update(t *testing.T) {
-
 	bucketName := generateBucketName()
 	ttl := 600
 

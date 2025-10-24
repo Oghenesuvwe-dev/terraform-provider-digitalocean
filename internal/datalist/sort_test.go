@@ -171,5 +171,4 @@ func TestApplySortsMultiple(t *testing.T) {
 		sizes[2]["slug"] != "1gb" {
 		t.Fatalf("Expecting sizes to be sorted by memory in descending order, then by disk in ascending order")
 	}
-
 }

@@ -154,7 +154,8 @@ func resourceDigitalOceanReservedIPV6Import(ctx context.Context, d *schema.Resou
 }
 
 func waitForReservedIPV6Ready(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int,
+) (interface{}, error) {
 	log.Printf(
 		"[INFO] Waiting for reserved IPv6 (%s) to have %s of %s",
 		d.Id(), attribute, target)
@@ -174,10 +175,10 @@ func waitForReservedIPV6Ready(
 }
 
 func newReservedIPV6StateRefreshFunc(
-	d *schema.ResourceData, meta interface{}, actionID int) retry.StateRefreshFunc {
+	d *schema.ResourceData, meta interface{}, actionID int,
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		log.Printf("[INFO] Assigning the reserved IPv6 to the Droplet")
 		action, _, err := client.Actions.Get(context.Background(), actionID)
 		if err != nil {

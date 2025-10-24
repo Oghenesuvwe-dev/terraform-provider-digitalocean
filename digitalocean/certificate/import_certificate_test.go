@@ -26,7 +26,8 @@ func TestAccDigitalOceanCertificate_importBasic(t *testing.T) {
 				ImportState:       true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"certificate_chain", "leaf_certificate", "private_key"}, // We ignore these as they are not returned by the API
+					"certificate_chain", "leaf_certificate", "private_key",
+				}, // We ignore these as they are not returned by the API
 
 			},
 		},

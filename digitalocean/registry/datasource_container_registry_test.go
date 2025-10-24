@@ -71,7 +71,6 @@ func testAccCheckDataSourceDigitalOceanContainerRegistryExists(n string, reg *go
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundReg, _, err := client.Registry.Get(context.Background())
-
 		if err != nil {
 			return err
 		}

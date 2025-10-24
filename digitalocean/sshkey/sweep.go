@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_ssh_key",
 		F:    sweepSSHKey,
 	})
-
 }
 
 func sweepSSHKey(region string) error {

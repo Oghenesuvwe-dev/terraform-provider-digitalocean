@@ -15,7 +15,6 @@ func DataSourceDigitalOceanLoadbalancer() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanLoadbalancerRead,
 		Schema: map[string]*schema.Schema{
-
 			"id": {
 				Type:         schema.TypeString,
 				Optional:     true,
@@ -381,7 +380,6 @@ func dataSourceDigitalOceanLoadbalancerRead(ctx context.Context, d *schema.Resou
 
 		for {
 			lbs, resp, err := client.LoadBalancers.List(context.Background(), opts)
-
 			if err != nil {
 				return diag.Errorf("Error retrieving load balancers: %s", err)
 			}

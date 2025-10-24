@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_firewall",
 		F:    sweepFirewall,
 	})
-
 }
 
 func sweepFirewall(region string) error {

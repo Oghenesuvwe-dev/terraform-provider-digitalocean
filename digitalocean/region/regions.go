@@ -21,7 +21,6 @@ func getDigitalOceanRegions(meta interface{}, extra map[string]interface{}) ([]i
 
 	for {
 		regions, resp, err := client.Regions.List(context.Background(), opts)
-
 		if err != nil {
 			return nil, fmt.Errorf("Error retrieving regions: %s", err)
 		}

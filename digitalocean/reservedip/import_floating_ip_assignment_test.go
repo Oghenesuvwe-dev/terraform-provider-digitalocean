@@ -2,11 +2,10 @@ package reservedip_test
 
 import (
 	"context"
-	"strconv"
-	"testing"
-
 	"fmt"
 	"regexp"
+	"strconv"
+	"testing"
 
 	"github.com/digitalocean/terraform-provider-digitalocean/digitalocean/acceptance"
 	"github.com/digitalocean/terraform-provider-digitalocean/digitalocean/config"

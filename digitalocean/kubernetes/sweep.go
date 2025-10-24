@@ -16,7 +16,6 @@ func init() {
 		Name: "digitalocean_kubernetes_cluster",
 		F:    sweepKubernetesClusters,
 	})
-
 }
 
 func sweepKubernetesClusters(region string) error {

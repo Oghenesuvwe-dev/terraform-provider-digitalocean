@@ -95,7 +95,6 @@ func testAccCheckDigitalOceanUptimeCheckExists(resource string) resource.TestChe
 		}
 
 		foundUptimeCheck, _, err := client.UptimeChecks.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

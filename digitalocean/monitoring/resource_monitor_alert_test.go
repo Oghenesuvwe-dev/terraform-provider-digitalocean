@@ -129,7 +129,7 @@ resource "digitalocean_monitor_alert" "%s" {
 )
 
 func TestAccDigitalOceanMonitorAlert(t *testing.T) {
-	var randName = acceptance.RandomTestName()
+	randName := acceptance.RandomTestName()
 	resourceName := fmt.Sprintf("digitalocean_monitor_alert.%s", randName)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -152,7 +152,7 @@ func TestAccDigitalOceanMonitorAlert(t *testing.T) {
 }
 
 func TestAccDigitalOceanMonitorAlertSlackEmailAlerts(t *testing.T) {
-	var randName = acceptance.RandomTestName()
+	randName := acceptance.RandomTestName()
 	resourceName := fmt.Sprintf("digitalocean_monitor_alert.%s", randName)
 
 	resource.ParallelTest(t, resource.TestCase{
@@ -177,7 +177,7 @@ func TestAccDigitalOceanMonitorAlertSlackEmailAlerts(t *testing.T) {
 }
 
 func TestAccDigitalOceanMonitorAlertUpdate(t *testing.T) {
-	var randName = acceptance.RandomTestName()
+	randName := acceptance.RandomTestName()
 	resourceName := fmt.Sprintf("digitalocean_monitor_alert.%s", randName)
 
 	resource.ParallelTest(t, resource.TestCase{

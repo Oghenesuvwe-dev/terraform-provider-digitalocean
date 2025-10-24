@@ -108,7 +108,6 @@ func testAccCheckDigitalOceanReservedIPExists(n string, reservedIP *godo.Reserve
 
 		// Try to find the ReservedIP
 		foundReservedIP, _, err := client.ReservedIPs.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

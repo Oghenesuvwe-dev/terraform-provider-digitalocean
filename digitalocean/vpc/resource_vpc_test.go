@@ -147,7 +147,6 @@ func testAccCheckDigitalOceanVPCExists(resource string) resource.TestCheckFunc {
 		}
 
 		foundVPC, _, err := client.VPCs.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
@@ -167,6 +166,7 @@ resource "digitalocean_vpc" "foobar" {
   region      = "nyc3"
 }
 `
+
 const testAccCheckDigitalOceanVPCConfig_IPRange = `
 resource "digitalocean_vpc" "foobar" {
   name     = "%s"

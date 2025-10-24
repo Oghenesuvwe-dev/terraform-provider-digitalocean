@@ -174,7 +174,6 @@ func resourceDigitalOceanDatabaseReplicaCreate(ctx context.Context, d *schema.Re
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.FromErr(err)
 	}

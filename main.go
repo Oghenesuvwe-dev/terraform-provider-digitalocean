@@ -7,5 +7,6 @@ import (
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: digitalocean.Provider})
+		ProviderFunc: digitalocean.Provider,
+	})
 }

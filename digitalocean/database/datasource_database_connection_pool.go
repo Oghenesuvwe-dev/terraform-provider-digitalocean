@@ -80,11 +80,9 @@ func DataSourceDigitalOceanDatabaseConnectionPool() *schema.Resource {
 			},
 		},
 	}
-
 }
 
 func dataSourceDigitalOceanDatabaseConnectionPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-
 	clusterID := d.Get("cluster_id").(string)
 	poolName := d.Get("name").(string)
 	d.SetId(createConnectionPoolID(clusterID, poolName))

@@ -245,6 +245,7 @@ resource "digitalocean_reserved_ipv6_assignment" "foobar" {
   }
 }
 `
+
 var testAccCheckDigitalOceanReservedIPV6AssignmentConfig_createBeforeDestroyReassign = `
 resource "digitalocean_droplet" "foobar" {
   image  = "ubuntu-22-04-x64"

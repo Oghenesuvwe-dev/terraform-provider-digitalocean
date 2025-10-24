@@ -88,7 +88,6 @@ func testAccCheckDigitalOceanVPCPeeringExists(resource string, vpcPeering *godo.
 		}
 
 		foundVPCPeering, _, err := client.VPCs.GetVPCPeering(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

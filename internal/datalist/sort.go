@@ -8,9 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
-var (
-	sortKeys = []string{"asc", "desc"}
-)
+var sortKeys = []string{"asc", "desc"}
 
 type commonSort struct {
 	key       string

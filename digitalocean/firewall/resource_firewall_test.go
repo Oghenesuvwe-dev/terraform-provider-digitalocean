@@ -348,7 +348,6 @@ func testAccCheckDigitalOceanFirewallExists(n string, firewall *godo.Firewall) r
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundFirewall, _, err := client.Firewalls.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

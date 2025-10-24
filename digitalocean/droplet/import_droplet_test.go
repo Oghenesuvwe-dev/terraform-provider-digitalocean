@@ -32,7 +32,8 @@ func TestAccDigitalOceanDroplet_importBasic(t *testing.T) {
 				ImportState:       true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"ssh_keys", "user_data", "resize_disk", "graceful_shutdown"}, //we ignore these attributes as we do not set to state
+					"ssh_keys", "user_data", "resize_disk", "graceful_shutdown",
+				}, // we ignore these attributes as we do not set to state
 			},
 			// Test importing non-existent resource provides expected error.
 			{
@@ -88,7 +89,8 @@ func TestAccDigitalOceanDroplet_ImportWithNoImageSlug(t *testing.T) {
 				ImportState:       true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"ssh_keys", "user_data", "resize_disk", "graceful_shutdown"}, //we ignore the ssh_keys, resize_disk and user_data as we do not set to state
+					"ssh_keys", "user_data", "resize_disk", "graceful_shutdown",
+				}, // we ignore the ssh_keys, resize_disk and user_data as we do not set to state
 			},
 			{
 				Config: " ",

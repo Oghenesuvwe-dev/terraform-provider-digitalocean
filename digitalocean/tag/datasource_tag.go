@@ -12,7 +12,6 @@ func DataSourceDigitalOceanTag() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanTagRead,
 		Schema: map[string]*schema.Schema{
-
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,

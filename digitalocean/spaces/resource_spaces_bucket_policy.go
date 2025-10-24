@@ -149,7 +149,6 @@ func resourceDigitalOceanBucketPolicyDelete(ctx context.Context, d *schema.Resou
 	_, err = conn.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
 		Bucket: aws.String(bucket),
 	})
-
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok && awsErr.Code() == "BucketDeleted" {
 			return diag.Errorf("Unable to remove Spaces bucket policy because bucket '%s' is already deleted", bucket)

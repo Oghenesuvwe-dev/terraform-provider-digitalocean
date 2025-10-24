@@ -298,7 +298,6 @@ func TemplateSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: templateSchem,
 	}
-
 }
 
 func ChatbotSchema() *schema.Resource {
@@ -449,7 +448,6 @@ func DeploymentSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: deploymentSchema,
 	}
-
 }
 
 func OpenAiApiKeySchema() *schema.Resource {
@@ -884,6 +882,7 @@ func KnowledgeBaseSchema() *schema.Resource {
 		Schema: knowledgeBaseSchema,
 	}
 }
+
 func OpenAIApiKeySchemaRead() map[string]*schema.Schema {
 	return map[string]*schema.Schema{
 		"uuid": {
@@ -1148,7 +1147,6 @@ func AgentSchemaRead() map[string]*schema.Schema {
 			Description: "User ID linked with the Agent",
 		},
 	}
-
 }
 
 func AgentVersionSchemaRead() map[string]*schema.Schema {

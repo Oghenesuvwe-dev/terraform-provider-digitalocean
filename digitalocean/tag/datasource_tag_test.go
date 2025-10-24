@@ -70,7 +70,6 @@ func testAccCheckDataSourceDigitalOceanTagExists(n string, tag *godo.Tag) resour
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundTag, _, err := client.Tags.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}
