@@ -322,9 +322,7 @@ func TestAccDigitalOceanDatabaseCluster_RedisNoVersion(t *testing.T) {
 // The provider suppresses diffs when the config version is <= to the latest
 // version. New clusters is always created with the latest version .
 func TestAccDigitalOceanDatabaseCluster_oldRedisVersion(t *testing.T) {
-	var (
-		database godo.Database
-	)
+	var database godo.Database
 
 	databaseName := acceptance.RandomTestName()
 
@@ -673,7 +671,6 @@ func testAccCheckDigitalOceanDatabaseClusterDestroy(s *terraform.State) error {
 
 func testAccCheckDigitalOceanDatabaseClusterAttributes(database *godo.Database, name string) resource.TestCheckFunc {
 	return func(_ *terraform.State) error {
-
 		if database.Name != name {
 			return fmt.Errorf("Bad name: %s", database.Name)
 		}
@@ -721,7 +718,6 @@ func testAccCheckDigitalOceanDatabaseClusterExists(n string, database *godo.Data
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundDatabaseCluster, _, err := client.Databases.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

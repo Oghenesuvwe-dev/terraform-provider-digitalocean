@@ -132,7 +132,6 @@ func dataSourceDigitalOceanSpacesBucketObjectsRead(_ context.Context, d *schema.
 
 		return !lastPage
 	})
-
 	if err != nil {
 		return diag.Errorf("error listing Spaces Bucket (%s) Objects: %s", bucket, err)
 	}

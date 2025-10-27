@@ -100,7 +100,6 @@ func listVPCPeerings(client *godo.Client) ([]*godo.VPCPeering, error) {
 
 	for {
 		peerings, resp, err := client.VPCs.ListVPCPeerings(context.Background(), opts)
-
 		if err != nil {
 			return peeringsList, fmt.Errorf("error retrieving VPC Peerings: %s", err)
 		}

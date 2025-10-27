@@ -205,7 +205,8 @@ func resourceDigitalOceanReservedIPImport(_ context.Context, d *schema.ResourceD
 }
 
 func waitForReservedIPReady(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int,
+) (interface{}, error) {
 	log.Printf(
 		"[INFO] Waiting for reserved IP (%s) to have %s of %s",
 		d.Id(), attribute, target)
@@ -225,10 +226,10 @@ func waitForReservedIPReady(
 }
 
 func newReservedIPStateRefreshFunc(
-	d *schema.ResourceData, _ string, meta interface{}, actionID int) retry.StateRefreshFunc {
+	d *schema.ResourceData, _ string, meta interface{}, actionID int,
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		log.Printf("[INFO] Assigning the reserved IP to the Droplet")
 		action, _, err := client.ReservedIPActions.Get(context.Background(), d.Id(), actionID)
 		if err != nil {

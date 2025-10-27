@@ -18,7 +18,6 @@ import (
 const DigitaloceanKubernetesDefaultNodePoolTag = "terraform:default-node-pool"
 
 func ResourceDigitalOceanKubernetesNodePool() *schema.Resource {
-
 	return &schema.Resource{
 		CreateContext: resourceDigitalOceanKubernetesNodePoolCreate,
 		ReadContext:   resourceDigitalOceanKubernetesNodePoolRead,
@@ -222,7 +221,6 @@ func digitaloceanKubernetesNodePoolCreate(client *godo.Client, timeout time.Dura
 	}
 
 	p, _, err := client.Kubernetes.CreateNodePool(context.Background(), clusterID, req)
-
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create new default node pool %s", err)
 	}
@@ -271,7 +269,6 @@ func digitaloceanKubernetesNodePoolUpdate(client *godo.Client, timeout time.Dura
 	}
 
 	p, resp, err := client.Kubernetes.UpdateNodePool(context.Background(), clusterID, poolID, req)
-
 	if err != nil {
 		if resp != nil && resp.StatusCode == 404 {
 			return nil, nil

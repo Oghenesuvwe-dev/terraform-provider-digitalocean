@@ -388,7 +388,8 @@ func ResourceDigitalOceanDatabasePostgreSQLConfig() *schema.Resource {
 						"max_background_workers": {
 							Type:     schema.TypeInt,
 							Optional: true,
-						}},
+						},
+					},
 				},
 			},
 		},

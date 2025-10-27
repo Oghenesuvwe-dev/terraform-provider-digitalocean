@@ -73,7 +73,6 @@ func resourceDigitalOceanDropletSnapshotCreate(ctx context.Context, d *schema.Re
 	}
 
 	snapshot, err := findSnapshotInSnapshotList(context.Background(), client, *action)
-
 	if err != nil {
 		return diag.Errorf("Error retrieving Droplet Snapshot: %s", err)
 	}

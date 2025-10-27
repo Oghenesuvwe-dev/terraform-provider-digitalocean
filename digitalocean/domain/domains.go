@@ -38,7 +38,6 @@ func getDigitalOceanDomains(meta interface{}, _ map[string]interface{}) ([]inter
 
 	for {
 		domains, resp, err := client.Domains.List(context.Background(), opts)
-
 		if err != nil {
 			return nil, fmt.Errorf("Error retrieving domains: %s", err)
 		}

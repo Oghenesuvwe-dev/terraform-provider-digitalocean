@@ -40,7 +40,6 @@ func ResourceDigitalOceanLoadbalancer() *schema.Resource {
 		Schema: resourceDigitalOceanLoadBalancerV1(),
 
 		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
 			if _, hasHealthCheck := diff.GetOk("healthcheck"); hasHealthCheck {
 
 				healthCheckProtocol := diff.Get("healthcheck.0.protocol").(string)
@@ -315,7 +314,7 @@ func resourceDigitalOceanLoadBalancerV0() *schema.Resource {
 			"sticky_sessions": {
 				Type:     schema.TypeList,
 				Optional: true,
-				Computed: true, //this needs to be computed as the API returns a struct with none as the type
+				Computed: true, // this needs to be computed as the API returns a struct with none as the type
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -870,5 +869,4 @@ func resourceDigitalOceanLoadbalancerDelete(_ context.Context, d *schema.Resourc
 
 	d.SetId("")
 	return nil
-
 }

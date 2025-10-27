@@ -199,7 +199,6 @@ func testAccCheckDigitalOceanDatabaseReplicaExists(n string, database *godo.Data
 		uuid := rs.Primary.Attributes["uuid"]
 
 		foundDatabaseReplica, _, err := client.Databases.GetReplica(context.Background(), clusterId, name)
-
 		if err != nil {
 			return err
 		}
@@ -220,7 +219,6 @@ func testAccCheckDigitalOceanDatabaseReplicaExists(n string, database *godo.Data
 
 func testAccCheckDigitalOceanDatabaseReplicaAttributes(databaseReplica *godo.DatabaseReplica, name string) resource.TestCheckFunc {
 	return func(_ *terraform.State) error {
-
 		if databaseReplica.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseReplica.Name)
 		}

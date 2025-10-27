@@ -275,7 +275,6 @@ func resourceDigitalOceanPartnerAttachmentDelete(ctx context.Context, d *schema.
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.FromErr(err)
 	}

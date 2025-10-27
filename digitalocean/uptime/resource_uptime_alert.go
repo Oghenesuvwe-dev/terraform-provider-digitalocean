@@ -199,7 +199,6 @@ func resourceDigitalOceanUptimeAlertDelete(ctx context.Context, d *schema.Resour
 
 	// Delete the uptime alert
 	_, err := client.UptimeChecks.DeleteAlert(ctx, checkID, d.Id())
-
 	if err != nil {
 		return diag.Errorf("Error deleting uptime alerts: %s", err)
 	}

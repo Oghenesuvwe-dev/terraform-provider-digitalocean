@@ -16,7 +16,6 @@ func DataSourceDigitalOceanRecord() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanRecordRead,
 		Schema: map[string]*schema.Schema{
-
 			"domain": {
 				Type:         schema.TypeString,
 				Required:     true,

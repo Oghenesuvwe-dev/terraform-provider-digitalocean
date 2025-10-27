@@ -143,7 +143,6 @@ func resourceDigitalOceanUptimeCheckDelete(ctx context.Context, d *schema.Resour
 
 	// Delete the uptime check
 	_, err := client.UptimeChecks.Delete(ctx, d.Id())
-
 	if err != nil {
 		return diag.Errorf("Error deleting uptime checks: %s", err)
 	}

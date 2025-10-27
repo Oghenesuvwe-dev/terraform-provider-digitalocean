@@ -209,7 +209,6 @@ func ResourceDigitalOceanBucket() *schema.Resource {
 func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error creating bucket: %s", err)
 	}
@@ -238,7 +237,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Error creating Spaces bucket: %s", err)
 	}
@@ -257,7 +255,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Failed to check availability of Spaces bucket %s: %s", name, err)
 	}
@@ -271,7 +268,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 func resourceDigitalOceanBucketUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error updating bucket: %s", err)
 	}
@@ -308,7 +304,6 @@ func resourceDigitalOceanBucketUpdate(ctx context.Context, d *schema.ResourceDat
 func resourceDigitalOceanBucketRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error reading bucket: %s", err)
 	}
@@ -487,7 +482,6 @@ func resourceDigitalOceanBucketRead(_ context.Context, d *schema.ResourceData, m
 func resourceDigitalOceanBucketDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error deleting bucket: %s", err)
 	}
