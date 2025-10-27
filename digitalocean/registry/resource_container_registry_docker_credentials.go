@@ -68,7 +68,7 @@ func resourceDigitalOceanContainerRegistryDockerCredentialsCreate(ctx context.Co
 	return resourceDigitalOceanContainerRegistryDockerCredentialsRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanContainerRegistryDockerCredentialsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanContainerRegistryDockerCredentialsRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	reg, response, err := client.Registry.Get(context.Background())
@@ -93,7 +93,7 @@ func resourceDigitalOceanContainerRegistryDockerCredentialsRead(ctx context.Cont
 	return nil
 }
 
-func resourceDigitalOceanContainerRegistryDockerCredentialsUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanContainerRegistryDockerCredentialsUpdate(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	if d.HasChange("expiry_seconds") {
 		write := d.Get("write").(bool)
 		expirySeconds := d.Get("expiry_seconds").(int)
@@ -132,7 +132,7 @@ type DockerConfig struct {
 	} `json:"auths"`
 }
 
-func resourceDigitalOceanContainerRegistryDockerCredentialsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanContainerRegistryDockerCredentialsDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	configJSON := d.Get("docker_credentials")
 	var config DockerConfig
 	err := json.Unmarshal([]byte(configJSON.(string)), &config)

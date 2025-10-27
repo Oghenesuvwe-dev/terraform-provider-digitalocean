@@ -32,7 +32,7 @@ func TestAccDataSourceDigitalOceanDatabaseReplica_Basic(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDigitalOceanDatabaseClusterExists("digitalocean_database_cluster.foobar", &database),
 					resource.TestCheckFunc(
-						func(s *terraform.State) error {
+						func(_ *terraform.State) error {
 							time.Sleep(30 * time.Second)
 							return nil
 						},

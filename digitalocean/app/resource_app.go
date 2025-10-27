@@ -178,7 +178,7 @@ func resourceDigitalOceanAlertDestinationUpdate(appID string, existingAlerts, sc
 	return nil
 }
 
-func resourceDigitalOceanAppRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanAppRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	app, resp, err := client.Apps.Get(context.Background(), d.Id())
@@ -222,7 +222,7 @@ func resourceDigitalOceanAppRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
-func appDedicatedIps(d *schema.ResourceData, app *godo.App) []interface{} {
+func appDedicatedIps(_ *schema.ResourceData, app *godo.App) []interface{} {
 	remote := make([]interface{}, 0, len(app.DedicatedIps))
 	for _, change := range app.DedicatedIps {
 		rawChange := map[string]interface{}{
@@ -265,7 +265,7 @@ func resourceDigitalOceanAppUpdate(ctx context.Context, d *schema.ResourceData, 
 	return resourceDigitalOceanAppRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanAppDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanAppDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting App: %s", d.Id())

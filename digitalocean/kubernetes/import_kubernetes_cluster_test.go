@@ -107,7 +107,7 @@ func TestAccDigitalOceanKubernetesCluster_ImportNonDefaultNodePool(t *testing.T)
 }
 
 func testAccDigitalOceanKubernetesRemoveDefaultNodePoolTag(clusterName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		clusters, resp, err := client.Kubernetes.List(context.Background(), &godo.ListOptions{})

@@ -359,7 +359,7 @@ func DataSourceDigitalOceanLoadbalancer() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanLoadbalancerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanLoadbalancerRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var foundLoadbalancer *godo.LoadBalancer

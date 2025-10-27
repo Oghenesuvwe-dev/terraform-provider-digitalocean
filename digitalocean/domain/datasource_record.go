@@ -74,7 +74,7 @@ func DataSourceDigitalOceanRecord() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanRecordRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanRecordRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	domain := d.Get("domain").(string)
 	name := d.Get("name").(string)

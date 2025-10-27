@@ -68,7 +68,7 @@ func DataSourceDigitalOceanDatabaseUser() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDatabaseUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanDatabaseUserRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	clusterID := d.Get("cluster_id").(string)

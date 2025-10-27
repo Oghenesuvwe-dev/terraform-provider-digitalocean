@@ -475,7 +475,7 @@ func testAccCheckDigitalOceanBucketDestroy(s *terraform.State) error {
 	return testAccCheckDigitalOceanBucketDestroyWithProvider(s, acceptance.TestAccProvider)
 }
 
-func testAccCheckDigitalOceanBucketDestroyWithProvider(s *terraform.State, provider *schema.Provider) error {
+func testAccCheckDigitalOceanBucketDestroyWithProvider(s *terraform.State, _ *schema.Provider) error {
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "digitalocean_spaces_bucket" {
 			continue
@@ -507,7 +507,7 @@ func testAccCheckDigitalOceanBucketExists(n string) resource.TestCheckFunc {
 	return testAccCheckDigitalOceanBucketExistsWithProvider(n, func() *schema.Provider { return acceptance.TestAccProvider })
 }
 
-func testAccCheckDigitalOceanBucketExistsWithProvider(n string, providerF func() *schema.Provider) resource.TestCheckFunc {
+func testAccCheckDigitalOceanBucketExistsWithProvider(n string, _ func() *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {

@@ -52,7 +52,7 @@ func getDigitalOceanAgents(meta interface{}, extra map[string]interface{}) ([]in
 
 }
 
-func flattenDigitalOceanAgent(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanAgent(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	agent, ok := rawDomain.(*godo.Agent)
 	if !ok {
 		return nil, fmt.Errorf("expected *godo.Agent, got %T", rawDomain)
@@ -204,7 +204,7 @@ func FlattenDigitalOceanAgents(agents []*godo.Agent) ([]interface{}, error) {
 	return result, nil
 }
 
-func getDigitalOceanOpenAIApiKeys(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanOpenAIApiKeys(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	opts := &godo.ListOptions{
@@ -236,7 +236,7 @@ func getDigitalOceanOpenAIApiKeys(meta interface{}, extra map[string]interface{}
 	return allOpenAIApiKeys, nil
 }
 
-func flattenOpenAIApiKeyInfo(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenOpenAIApiKeyInfo(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	openAIApiKey, ok := rawDomain.(*godo.OpenAiApiKey)
 	if !ok || openAIApiKey == nil {
 		// Return nil without error to safely skip nil or wrong type entries
@@ -276,7 +276,7 @@ func FlattenOpenAIApiKeyInfo(openAIApiKey *godo.OpenAiApiKey) (map[string]interf
 	return result, nil
 }
 
-func flattenDigitalOceanModel(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanModel(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	model, ok := rawDomain.(*godo.Model)
 	if !ok {
 		return nil, nil
@@ -340,7 +340,7 @@ func FlattenDigitalOceanModel(model *godo.Model) (map[string]interface{}, error)
 	return result, nil
 }
 
-func getDigitalOceanModels(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanModels(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	opts := &godo.ListOptions{
@@ -372,7 +372,7 @@ func getDigitalOceanModels(meta interface{}, extra map[string]interface{}) ([]in
 	return allModels, nil
 }
 
-func flattenDigitalOceanRegion(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanRegion(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	region, ok := rawDomain.(*godo.DatacenterRegions)
 	if !ok || region == nil {
 		// Return nil without error to safely skip nil or wrong type entries
@@ -397,7 +397,7 @@ func FlattenDigitalOceanRegion(region *godo.DatacenterRegions) (map[string]inter
 	return result, nil
 }
 
-func getDigitalOceanRegions(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanRegions(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var allRegions []interface{}
@@ -747,7 +747,7 @@ func flattenTemplate(template *godo.AgentTemplate) []interface{} {
 	return []interface{}{m}
 }
 
-func getDigitalOceanKnowledgeBases(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanKnowledgeBases(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	opts := &godo.ListOptions{
@@ -779,7 +779,7 @@ func getDigitalOceanKnowledgeBases(meta interface{}, extra map[string]interface{
 	return allKnowledgeBases, nil
 }
 
-func flattenDigitalOceanKnowledgeBase(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanKnowledgeBase(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	kb, ok := rawDomain.(*godo.KnowledgeBase)
 	if !ok {
 		return nil, fmt.Errorf("expected *godo.KnowledgeBase, got %T", rawDomain)
@@ -1105,7 +1105,7 @@ func getDigitalOceanAgentVersions(meta interface{}, extra map[string]interface{}
 
 }
 
-func flattenDigitalOceanAgentVersion(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanAgentVersion(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	agentVersions, ok := rawDomain.(*godo.AgentVersion)
 	if !ok {
 		return nil, fmt.Errorf("expected *godo.AgentVersion, got %T", rawDomain)

@@ -53,7 +53,7 @@ func DataSourceDigitalOceanVPCPeering() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVPCPeeringRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func dataSourceDigitalOceanVPCPeeringRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	var foundVPCPeering *godo.VPCPeering
 

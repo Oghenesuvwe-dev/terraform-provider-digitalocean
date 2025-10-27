@@ -415,7 +415,7 @@ func testAccGetS3Conn() (*s3.S3, error) {
 }
 
 func testAccCheckDigitalOceanSpacesBucketObjectVersionIdDiffers(first, second *s3.GetObjectOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		if first.VersionId == nil {
 			return fmt.Errorf("Expected first object to have VersionId: %s", first)
 		}
@@ -432,7 +432,7 @@ func testAccCheckDigitalOceanSpacesBucketObjectVersionIdDiffers(first, second *s
 }
 
 func testAccCheckDigitalOceanSpacesBucketObjectVersionIdEquals(first, second *s3.GetObjectOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		if first.VersionId == nil {
 			return fmt.Errorf("Expected first object to have VersionId: %s", first)
 		}
@@ -516,7 +516,7 @@ func testAccCheckDigitalOceanSpacesBucketObjectExists(n string, obj *s3.GetObjec
 }
 
 func testAccCheckDigitalOceanSpacesBucketObjectBody(obj *s3.GetObjectOutput, want string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		body, err := io.ReadAll(obj.Body)
 		if err != nil {
 			return fmt.Errorf("failed to read body: %s", err)

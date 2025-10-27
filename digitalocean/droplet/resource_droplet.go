@@ -223,7 +223,7 @@ func ResourceDigitalOceanDroplet() *schema.Resource {
 				ValidateFunc: validation.NoZeroValues,
 				StateFunc:    util.HashStringStateFunc(),
 				// In order to support older statefiles with fully saved user data
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					return new != "" && old == d.Get("user_data")
 				},
 			},
@@ -266,17 +266,17 @@ func ResourceDigitalOceanDroplet() *schema.Resource {
 			// in another resource such as a domain record, e.g.:
 			// https://github.com/digitalocean/terraform-provider-digitalocean/issues/981
 			customdiff.IfValueChange("ipv6",
-				func(ctx context.Context, old, new, meta interface{}) bool {
+				func(_ context.Context, old, new, _ interface{}) bool {
 					return !old.(bool) && new.(bool)
 				},
-				customdiff.ComputedIf("ipv6_address", func(ctx context.Context, d *schema.ResourceDiff, meta interface{}) bool {
+				customdiff.ComputedIf("ipv6_address", func(_ context.Context, d *schema.ResourceDiff, _ interface{}) bool {
 					return d.Get("ipv6").(bool)
 				}),
 			),
 			// Forces replacement when IPv6 has attribute changes to `false`
 			// https://github.com/digitalocean/terraform-provider-digitalocean/issues/1104
 			customdiff.ForceNewIfChange("ipv6",
-				func(ctx context.Context, old, new, meta interface{}) bool {
+				func(_ context.Context, old, new, _ interface{}) bool {
 					return old.(bool) && !new.(bool)
 				},
 			),
@@ -398,7 +398,7 @@ func resourceDigitalOceanDropletCreate(ctx context.Context, d *schema.ResourceDa
 	return nil
 }
 
-func resourceDigitalOceanDropletRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDropletRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	id, err := strconv.Atoi(d.Id())
@@ -881,7 +881,7 @@ func waitForDropletAttribute(
 // TODO This function still needs a little more refactoring to make it
 // cleaner and more efficient
 func dropletStateRefreshFunc(
-	ctx context.Context, d *schema.ResourceData, attribute string, meta interface{}) retry.StateRefreshFunc {
+	_ context.Context, d *schema.ResourceData, attribute string, meta interface{}) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
 		id, err := strconv.Atoi(d.Id())

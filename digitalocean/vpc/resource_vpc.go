@@ -116,7 +116,7 @@ func resourceDigitalOceanVPCCreate(ctx context.Context, d *schema.ResourceData, 
 	return resourceDigitalOceanVPCRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanVPCRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVPCRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	vpc, resp, err := client.VPCs.Get(context.Background(), d.Id())

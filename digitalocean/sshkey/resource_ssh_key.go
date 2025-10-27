@@ -54,7 +54,7 @@ func ResourceDigitalOceanSSHKey() *schema.Resource {
 	}
 }
 
-func resourceDigitalOceanSSHKeyPublicKeyDiffSuppress(k, old, new string, d *schema.ResourceData) bool {
+func resourceDigitalOceanSSHKeyPublicKeyDiffSuppress(_, old, new string, _ *schema.ResourceData) bool {
 	return strings.TrimSpace(old) == strings.TrimSpace(new)
 }
 
@@ -96,7 +96,7 @@ func resourceDigitalOceanSSHKeyCreate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanSSHKeyRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSSHKeyRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	id, err := strconv.Atoi(d.Id())
@@ -148,7 +148,7 @@ func resourceDigitalOceanSSHKeyUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanSSHKeyRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanSSHKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSSHKeyDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	id, err := strconv.Atoi(d.Id())

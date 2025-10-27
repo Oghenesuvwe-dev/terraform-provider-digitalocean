@@ -33,7 +33,7 @@ func TagsDataSourceSchema() *schema.Schema {
 	}
 }
 
-func ValidateTag(value interface{}, key string) ([]string, []error) {
+func ValidateTag(value interface{}, _ string) ([]string, []error) {
 	if !tagNameRe.MatchString(value.(string)) {
 		return nil, []error{fmt.Errorf("tags may contain lowercase letters, numbers, colons, dashes, and underscores; there is a limit of 255 characters per tag")}
 	}

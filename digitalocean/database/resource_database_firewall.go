@@ -86,7 +86,7 @@ func resourceDigitalOceanDatabaseFirewallCreate(ctx context.Context, d *schema.R
 	return resourceDigitalOceanDatabaseFirewallRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseFirewallRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseFirewallRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 
@@ -121,7 +121,7 @@ func resourceDigitalOceanDatabaseFirewallUpdate(ctx context.Context, d *schema.R
 	return resourceDigitalOceanDatabaseFirewallRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseFirewallDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseFirewallDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 
@@ -139,7 +139,7 @@ func resourceDigitalOceanDatabaseFirewallDelete(ctx context.Context, d *schema.R
 	return nil
 }
 
-func resourceDigitalOceanDatabaseFirewallImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseFirewallImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 	d.Set("cluster_id", clusterID)
 	d.SetId(id.PrefixedUniqueId(clusterID + "-"))

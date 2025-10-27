@@ -28,7 +28,7 @@ func DataSourceDigitalOceanProject() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanProjectRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	// Load the specified project, otherwise load the default project.

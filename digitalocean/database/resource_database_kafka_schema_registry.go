@@ -115,7 +115,7 @@ func resourceDigitalOceanDatabaseKafkaSchemaRegistryDelete(ctx context.Context, 
 	return nil
 }
 
-func resourceDigitalOceanDatabaseKafkaSchemaRegistryImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseKafkaSchemaRegistryImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(s[0])

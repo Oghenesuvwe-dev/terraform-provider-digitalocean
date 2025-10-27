@@ -116,7 +116,7 @@ func DataSourceDigitalOceanVPCNATGateway() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVPCNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func dataSourceDigitalOceanVPCNATGatewayRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var foundGateway *godo.VPCNATGateway

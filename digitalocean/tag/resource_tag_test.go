@@ -65,7 +65,7 @@ func testAccCheckDigitalOceanTagDestroy(s *terraform.State) error {
 }
 
 func testAccCheckDigitalOceanTagAttributes(tag *godo.Tag) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if tag.Name != "foobar" {
 			return fmt.Errorf("Bad name: %s", tag.Name)

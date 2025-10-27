@@ -134,7 +134,7 @@ func resourceDigitalOceanDatabaseConnectionPoolCreate(ctx context.Context, d *sc
 	return resourceDigitalOceanDatabaseConnectionPoolRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseConnectionPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseConnectionPoolRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID, poolName := splitConnectionPoolID(d.Id())
 
@@ -197,7 +197,7 @@ func setConnectionPoolInfo(pool *godo.DatabasePool, d *schema.ResourceData) erro
 	return nil
 }
 
-func resourceDigitalOceanDatabaseConnectionPoolImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseConnectionPoolImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(createConnectionPoolID(s[0], s[1]))
@@ -210,7 +210,7 @@ func resourceDigitalOceanDatabaseConnectionPoolImport(d *schema.ResourceData, me
 	return []*schema.ResourceData{d}, nil
 }
 
-func resourceDigitalOceanDatabaseConnectionPoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseConnectionPoolDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID, poolName := splitConnectionPoolID(d.Id())
 

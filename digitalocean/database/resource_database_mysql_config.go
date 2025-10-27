@@ -364,7 +364,7 @@ func resourceDigitalOceanDatabaseMySQLConfigRead(ctx context.Context, d *schema.
 	return nil
 }
 
-func resourceDigitalOceanDatabaseMySQLConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseMySQLConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 
 	warn := []diag.Diagnostic{
@@ -378,7 +378,7 @@ func resourceDigitalOceanDatabaseMySQLConfigDelete(ctx context.Context, d *schem
 	return warn
 }
 
-func resourceDigitalOceanDatabaseMySQLConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseMySQLConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 
 	d.SetId(makeDatabaseMySQLConfigID(clusterID))

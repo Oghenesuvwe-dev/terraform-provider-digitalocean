@@ -402,7 +402,7 @@ func testAccCheckDigitalOceanDatabaseUserNotExists(n string, databaseUserName st
 }
 
 func testAccCheckDigitalOceanDatabaseUserAttributes(databaseUser *godo.DatabaseUser, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if databaseUser.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseUser.Name)

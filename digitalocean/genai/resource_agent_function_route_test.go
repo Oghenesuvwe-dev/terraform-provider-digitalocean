@@ -91,7 +91,7 @@ func TestAccDigitalOceanAgentFunctionRoute_Update(t *testing.T) {
 	})
 }
 
-func testAccCheckDigitalOceanAgentFunctionRouteConfig_basic(function_name string) string {
+func testAccCheckDigitalOceanAgentFunctionRouteConfig_basic(_ string) string {
 	agentId := "00000000-0000-0000-0000-000000000000"
 	description := "Adding a function route and this will also tell temperature"
 	faasName := "default/testing"
@@ -137,7 +137,7 @@ resource "digitalocean_genai_function" "check" {
 `, agentId, description, faasName, faasNamespace, functionName, inputSchema)
 }
 
-func testAccCheckDigitalOceanAgentFunctionRouteConfig_withOptionalFields(function_name string) string {
+func testAccCheckDigitalOceanAgentFunctionRouteConfig_withOptionalFields(_ string) string {
 	agentId := "00000000-0000-0000-0000-000000000000"
 	description := "Adding a function route and this will also tell temperature"
 	faasName := "default/testing"
@@ -207,7 +207,7 @@ resource "digitalocean_genai_function" "check" {
 `, agentId, description, faasName, faasNamespace, functionName, inputSchema, outputSchema)
 }
 
-func testAccCheckDigitalOceanAgentFunctionRouteConfig_updated(function_name string) string {
+func testAccCheckDigitalOceanAgentFunctionRouteConfig_updated(_ string) string {
 	agentId := "00000000-0000-0000-0000-000000000000"
 	description := "Adding a function route and this will also tell temperature"
 	faasName := "default/testing"

@@ -173,7 +173,7 @@ func DataSourceDigitalOceanDatabaseCluster() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDatabaseClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanDatabaseClusterRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name := d.Get("name").(string)

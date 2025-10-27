@@ -10,7 +10,7 @@ import (
 
 const TestNamePrefix = "tf-acc-test-"
 
-func SharedConfigForRegion(region string) (interface{}, error) {
+func SharedConfigForRegion(_ string) (interface{}, error) {
 	if os.Getenv("DIGITALOCEAN_TOKEN") == "" {
 		return nil, fmt.Errorf("empty DIGITALOCEAN_TOKEN")
 	}

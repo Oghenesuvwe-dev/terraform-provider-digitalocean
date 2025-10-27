@@ -162,7 +162,7 @@ func getDigitalOceanDroplets(meta interface{}, extra map[string]interface{}) ([]
 	return dropletList, nil
 }
 
-func flattenDigitalOceanDroplet(rawDroplet, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanDroplet(rawDroplet, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	droplet := rawDroplet.(godo.Droplet)
 
 	flattenedDroplet := map[string]interface{}{

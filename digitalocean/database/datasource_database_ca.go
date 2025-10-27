@@ -27,7 +27,7 @@ func DataSourceDigitalOceanDatabaseCA() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDatabaseCARead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanDatabaseCARead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 	d.SetId(clusterID)

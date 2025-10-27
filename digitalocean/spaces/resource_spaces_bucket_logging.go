@@ -95,7 +95,7 @@ func resourceSpacesBucketLoggingCreate(ctx context.Context, d *schema.ResourceDa
 	return resourceSpacesBucketLoggingRead(ctx, d, meta)
 }
 
-func resourceSpacesBucketLoggingRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceSpacesBucketLoggingRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
 	if err != nil {
@@ -131,7 +131,7 @@ func resourceSpacesBucketLoggingRead(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
-func resourceSpacesBucketLoggingUpdate(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceSpacesBucketLoggingUpdate(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
 	if err != nil {
@@ -159,7 +159,7 @@ func resourceSpacesBucketLoggingUpdate(ctx context.Context, d *schema.ResourceDa
 	return nil
 }
 
-func resourceSpacesBucketLoggingDelete(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceSpacesBucketLoggingDelete(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
 	if err != nil {
@@ -188,7 +188,7 @@ func resourceSpacesBucketLoggingDelete(ctx context.Context, d *schema.ResourceDa
 	return nil
 }
 
-func resourceDigitalOceanAccessLoggingImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanAccessLoggingImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 

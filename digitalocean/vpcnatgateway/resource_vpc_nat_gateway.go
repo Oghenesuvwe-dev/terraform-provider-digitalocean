@@ -183,7 +183,7 @@ func resourceDigitalOceanVPCNATGatewayCreate(ctx context.Context, d *schema.Reso
 	return resourceDigitalOceanVPCNATGatewayRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanVPCNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceDigitalOceanVPCNATGatewayRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	gateway, _, err := client.VPCNATGateways.Get(context.Background(), d.Id())

@@ -30,7 +30,7 @@ func sshKeySchema() map[string]*schema.Schema {
 	}
 }
 
-func getDigitalOceanSshKeys(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanSshKeys(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	opts := &godo.ListOptions{
@@ -66,7 +66,7 @@ func getDigitalOceanSshKeys(meta interface{}, extra map[string]interface{}) ([]i
 	return keyList, nil
 }
 
-func flattenDigitalOceanSshKey(rawSshKey, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanSshKey(rawSshKey, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	key := rawSshKey.(godo.Key)
 
 	flattenedSshKey := map[string]interface{}{

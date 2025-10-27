@@ -73,7 +73,7 @@ func resourceDigitalOceanReservedIPV6Create(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanReservedIPV6Read(ctx, d, meta)
 }
 
-func resourceDigitalOceanReservedIPV6Read(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanReservedIPV6Read(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Reading the details of the reserved IPv6 %s", d.Id())
@@ -133,7 +133,7 @@ func resourceDigitalOceanReservedIPV6Delete(ctx context.Context, d *schema.Resou
 	return nil
 }
 
-func resourceDigitalOceanReservedIPV6Import(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanReservedIPV6Import(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	reservedIP, resp, err := client.ReservedIPV6s.Get(context.Background(), d.Id())
 	if resp.StatusCode != 404 {

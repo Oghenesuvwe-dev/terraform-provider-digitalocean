@@ -126,7 +126,7 @@ func resourceDigitalOceanDatabaseOnlineMigrationStart(ctx context.Context, d *sc
 
 // Polls for errors in migration for 90 seconds. Requests can pass the API precheck and returns 200 response but still fail the migration quickly.
 // Should notify user in this scenario.
-func waitForOnlineMigration(ctx context.Context, client *godo.Client, d *schema.ResourceData, clusterID string, opts *godo.DatabaseStartOnlineMigrationRequest) (string, diag.Diagnostics) {
+func waitForOnlineMigration(ctx context.Context, client *godo.Client, _ *schema.ResourceData, clusterID string, opts *godo.DatabaseStartOnlineMigrationRequest) (string, diag.Diagnostics) {
 	_, _, err := client.Databases.Get(ctx, clusterID)
 	if err != nil {
 		return "", diag.Errorf("Cluster does not exist: %s", clusterID)

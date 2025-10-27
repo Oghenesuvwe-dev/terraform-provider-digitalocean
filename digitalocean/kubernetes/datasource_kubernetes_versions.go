@@ -31,7 +31,7 @@ func DataSourceDigitalOceanKubernetesVersions() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanKubernetesVersionsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanKubernetesVersionsRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	k8sOptions, _, err := client.Kubernetes.GetOptions(context.Background())

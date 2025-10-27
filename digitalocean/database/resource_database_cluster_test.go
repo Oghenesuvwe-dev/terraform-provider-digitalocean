@@ -122,7 +122,7 @@ func TestAccDigitalOceanDatabaseCluster_WithUpdate(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testAccCheckDigitalOceanDatabaseClusterConfigBasic, databaseName),
 				Check: resource.TestCheckFunc(
-					func(s *terraform.State) error {
+					func(_ *terraform.State) error {
 						time.Sleep(30 * time.Second)
 						return nil
 					},
@@ -162,7 +162,7 @@ func TestAccDigitalOceanDatabaseCluster_WithAdditionalStorage(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testAccCheckDigitalOceanDatabaseClusterConfigBasic, databaseName),
 				Check: resource.TestCheckFunc(
-					func(s *terraform.State) error {
+					func(_ *terraform.State) error {
 						time.Sleep(30 * time.Second)
 						return nil
 					},
@@ -535,7 +535,7 @@ func TestAccDigitalOceanDatabaseCluster_WithBackupRestore(t *testing.T) {
 					testAccCheckDigitalOceanDatabaseClusterAttributes(&originalDatabase, originalDatabaseName),
 					resource.TestCheckResourceAttr(
 						"digitalocean_database_cluster.foobar", "region", "nyc1"),
-					func(s *terraform.State) error {
+					func(_ *terraform.State) error {
 						err := waitForDatabaseBackups(originalDatabaseName)
 						return err
 					},
@@ -580,7 +580,7 @@ func TestAccDigitalOceanDatabaseCluster_MongoDBPassword(t *testing.T) {
 			{
 				Config: " ",
 				Check: resource.TestCheckFunc(
-					func(s *terraform.State) error {
+					func(_ *terraform.State) error {
 						time.Sleep(30 * time.Second)
 						return nil
 					},
@@ -672,7 +672,7 @@ func testAccCheckDigitalOceanDatabaseClusterDestroy(s *terraform.State) error {
 }
 
 func testAccCheckDigitalOceanDatabaseClusterAttributes(database *godo.Database, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if database.Name != name {
 			return fmt.Errorf("Bad name: %s", database.Name)

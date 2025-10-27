@@ -111,7 +111,7 @@ func testAccCheckDigitalOceanContainerRegistryDockerCredentialsDestroy(s *terraf
 }
 
 func testAccCheckDigitalOceanContainerRegistryDockerCredentialsAttributes(reg *godo.Registry, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if reg.Name != name {
 			return fmt.Errorf("Bad name: %s", reg.Name)

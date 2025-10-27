@@ -231,7 +231,7 @@ func DataSourceDigitalOceanKubernetesCluster() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanKubernetesClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanKubernetesClusterRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	clusters, resp, err := client.Kubernetes.List(context.Background(), &godo.ListOptions{})

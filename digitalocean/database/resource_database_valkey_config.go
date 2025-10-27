@@ -259,7 +259,7 @@ func resourceDigitalOceanDatabaseValkeyConfigRead(ctx context.Context, d *schema
 	return nil
 }
 
-func resourceDigitalOceanDatabaseValkeyConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseValkeyConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 	warn := []diag.Diagnostic{
 		{
@@ -271,7 +271,7 @@ func resourceDigitalOceanDatabaseValkeyConfigDelete(ctx context.Context, d *sche
 	return warn
 }
 
-func resourceDigitalOceanDatabaseValkeyConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseValkeyConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 	d.SetId(makeDatabaseValkeyConfigID(clusterID))
 	d.Set("cluster_id", clusterID)

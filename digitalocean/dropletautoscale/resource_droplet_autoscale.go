@@ -256,7 +256,7 @@ func resourceDigitalOceanDropletAutoscaleCreate(ctx context.Context, d *schema.R
 	return resourceDigitalOceanDropletAutoscaleRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDropletAutoscaleRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceDigitalOceanDropletAutoscaleRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	pool, _, err := client.DropletAutoscale.Get(context.Background(), d.Id())

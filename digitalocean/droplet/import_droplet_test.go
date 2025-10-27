@@ -100,8 +100,8 @@ func TestAccDigitalOceanDroplet_ImportWithNoImageSlug(t *testing.T) {
 	})
 }
 
-func takeDropletSnapshot(t *testing.T, name string, droplet *godo.Droplet, snapshotID *int) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+func takeDropletSnapshot(_ *testing.T, name string, droplet *godo.Droplet, snapshotID *int) resource.TestCheckFunc {
+	return func(_ *terraform.State) error {
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		action, _, err := client.DropletActions.Snapshot(context.Background(), (*droplet).ID, name)
@@ -123,7 +123,7 @@ func takeDropletSnapshot(t *testing.T, name string, droplet *godo.Droplet, snaps
 	}
 }
 
-func testAccCheckDigitalOceanDropletConfig_fromSnapshot(t *testing.T, name string, snapshotID int) string {
+func testAccCheckDigitalOceanDropletConfig_fromSnapshot(_ *testing.T, name string, snapshotID int) string {
 	return fmt.Sprintf(`
 resource "digitalocean_droplet" "from-snapshot" {
   name   = "%s"

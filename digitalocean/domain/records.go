@@ -98,7 +98,7 @@ func getDigitalOceanRecords(meta interface{}, extra map[string]interface{}) ([]i
 	return allRecords, nil
 }
 
-func flattenDigitalOceanRecord(rawRecord interface{}, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanRecord(rawRecord interface{}, _ interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
 	domain, ok := extra["domain"].(string)
 	if !ok {
 		return nil, fmt.Errorf("unable to find `domain` key from query data")

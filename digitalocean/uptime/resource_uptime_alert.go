@@ -244,7 +244,7 @@ func flattenNotifications(alerts *godo.Notifications) []interface{} {
 	}
 }
 
-func resourceDigitalOceanUptimeAlertImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanUptimeAlertImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 

@@ -323,7 +323,7 @@ func resourceDigitalOceanMonitorAlertRead(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
-func resourceDigitalOceanMonitorAlertDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanMonitorAlertDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting the monitor alert")

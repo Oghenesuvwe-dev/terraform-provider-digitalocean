@@ -43,7 +43,7 @@ func DataSourceDigitalOceanTags() *schema.Resource {
 	return datalist.NewResource(dataListConfig)
 }
 
-func getDigitalOceanTags(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanTags(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	tagsList := []interface{}{}
@@ -78,7 +78,7 @@ func getDigitalOceanTags(meta interface{}, extra map[string]interface{}) ([]inte
 	return tagsList, nil
 }
 
-func flattenDigitalOceanTag(tag, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanTag(tag, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	t := tag.(godo.Tag)
 
 	flattenedTag := map[string]interface{}{}
