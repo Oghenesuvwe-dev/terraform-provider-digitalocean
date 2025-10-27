@@ -97,7 +97,7 @@ func TakeSnapshotsOfDroplet(snapName string, droplet *godo.Droplet, snapshotsIDs
 				return err
 			}
 		}
-		retrieveDroplet, _, err := client.Droplets.Get(context.Background(), (*droplet).ID)
+		retrieveDroplet, _, err := client.Droplets.Get(context.Background(), droplet.ID)
 		if err != nil {
 			return err
 		}
@@ -108,7 +108,7 @@ func TakeSnapshotsOfDroplet(snapName string, droplet *godo.Droplet, snapshotsIDs
 
 func takeSnapshotOfDroplet(snapName string, intSuffix int, droplet *godo.Droplet) error {
 	client := TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
-	action, _, err := client.DropletActions.Snapshot(context.Background(), (*droplet).ID, fmt.Sprintf("%s-%d", snapName, intSuffix))
+	action, _, err := client.DropletActions.Snapshot(context.Background(), droplet.ID, fmt.Sprintf("%s-%d", snapName, intSuffix))
 	if err != nil {
 		return err
 	}

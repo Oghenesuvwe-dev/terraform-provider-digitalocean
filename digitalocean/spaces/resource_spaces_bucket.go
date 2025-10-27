@@ -439,7 +439,7 @@ func resourceDigitalOceanBucketRead(_ context.Context, d *schema.ResourceData, m
 			if lifecycleRule.Expiration != nil {
 				e := make(map[string]interface{})
 				if lifecycleRule.Expiration.Date != nil {
-					e["date"] = (*lifecycleRule.Expiration.Date).Format("2006-01-02")
+					e["date"] = lifecycleRule.Expiration.Date.Format("2006-01-02")
 				}
 				if lifecycleRule.Expiration.Days != nil {
 					e["days"] = int(*lifecycleRule.Expiration.Days)

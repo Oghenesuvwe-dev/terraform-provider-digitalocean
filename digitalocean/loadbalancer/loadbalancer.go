@@ -183,13 +183,13 @@ func flattenHealthChecks(health *godo.HealthCheck) []map[string]interface{} {
 	if health != nil {
 
 		r := make(map[string]interface{})
-		r["protocol"] = (*health).Protocol
-		r["port"] = (*health).Port
-		r["path"] = (*health).Path
-		r["check_interval_seconds"] = (*health).CheckIntervalSeconds
-		r["response_timeout_seconds"] = (*health).ResponseTimeoutSeconds
-		r["unhealthy_threshold"] = (*health).UnhealthyThreshold
-		r["healthy_threshold"] = (*health).HealthyThreshold
+		r["protocol"] = health.Protocol
+		r["port"] = health.Port
+		r["path"] = health.Path
+		r["check_interval_seconds"] = health.CheckIntervalSeconds
+		r["response_timeout_seconds"] = health.ResponseTimeoutSeconds
+		r["unhealthy_threshold"] = health.UnhealthyThreshold
+		r["healthy_threshold"] = health.HealthyThreshold
 
 		result = append(result, r)
 	}
@@ -203,9 +203,9 @@ func flattenStickySessions(session *godo.StickySessions) []map[string]interface{
 	if session != nil {
 
 		r := make(map[string]interface{})
-		r["type"] = (*session).Type
-		r["cookie_name"] = (*session).CookieName
-		r["cookie_ttl_seconds"] = (*session).CookieTtlSeconds
+		r["type"] = session.Type
+		r["cookie_name"] = session.CookieName
+		r["cookie_ttl_seconds"] = session.CookieTtlSeconds
 
 		result = append(result, r)
 	}
@@ -218,8 +218,8 @@ func flattenLBFirewall(firewall *godo.LBFirewall) []map[string]interface{} {
 
 	if firewall != nil {
 		r := make(map[string]interface{})
-		r["allow"] = (*firewall).Allow
-		r["deny"] = (*firewall).Deny
+		r["allow"] = firewall.Allow
+		r["deny"] = firewall.Deny
 
 		result = append(result, r)
 	}
@@ -322,13 +322,13 @@ func flattenDomains(client *godo.Client, domains []*godo.LBDomain) ([]map[string
 	for _, domain := range domains {
 		r := make(map[string]interface{})
 
-		r["name"] = (*domain).Name
-		r["is_managed"] = (*domain).IsManaged
-		r["verification_error_reasons"] = (*domain).VerificationErrorReasons
-		r["ssl_validation_error_reasons"] = (*domain).SSLValidationErrorReasons
+		r["name"] = domain.Name
+		r["is_managed"] = domain.IsManaged
+		r["verification_error_reasons"] = domain.VerificationErrorReasons
+		r["ssl_validation_error_reasons"] = domain.SSLValidationErrorReasons
 
 		if domain.CertificateID != "" {
-			r["certificate_id"] = (*domain).CertificateID
+			r["certificate_id"] = domain.CertificateID
 
 			// When the certificate type is lets_encrypt, the certificate
 			// ID will change when it's renewed, so we have to rely on the
@@ -351,13 +351,13 @@ func flattenGLBSettings(settings *godo.GLBSettings) []map[string]interface{} {
 	if settings != nil {
 		r := make(map[string]interface{})
 
-		r["target_protocol"] = strings.ToLower((*settings).TargetProtocol)
-		r["target_port"] = (*settings).TargetPort
+		r["target_protocol"] = strings.ToLower(settings.TargetProtocol)
+		r["target_port"] = settings.TargetPort
 
 		if settings.CDN != nil {
 			r["cdn"] = []interface{}{
 				map[string]interface{}{
-					"is_enabled": (*settings).CDN.IsEnabled,
+					"is_enabled": settings.CDN.IsEnabled,
 				},
 			}
 		}
@@ -368,7 +368,7 @@ func flattenGLBSettings(settings *godo.GLBSettings) []map[string]interface{} {
 				pMap[region] = priority
 			}
 			r["region_priorities"] = pMap
-			r["failover_threshold"] = (*settings).FailoverThreshold
+			r["failover_threshold"] = settings.FailoverThreshold
 		}
 
 		result = append(result, r)
