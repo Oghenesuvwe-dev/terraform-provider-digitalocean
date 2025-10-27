@@ -60,7 +60,7 @@ func DataSourceDigitalOceanVPC() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVPCRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanVPCRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	var foundVPC *godo.VPC
 
@@ -118,7 +118,6 @@ func listVPCs(client *godo.Client) ([]*godo.VPC, error) {
 
 	for {
 		vpcs, resp, err := client.VPCs.List(context.Background(), opts)
-
 		if err != nil {
 			return vpcList, fmt.Errorf("Error retrieving VPCs: %s", err)
 		}

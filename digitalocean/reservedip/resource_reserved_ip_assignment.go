@@ -66,7 +66,7 @@ func resourceDigitalOceanReservedIPAssignmentCreate(ctx context.Context, d *sche
 	return resourceDigitalOceanReservedIPAssignmentRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanReservedIPAssignmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanReservedIPAssignmentRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	ipAddress := d.Get("ip_address").(string)
@@ -119,7 +119,8 @@ func resourceDigitalOceanReservedIPAssignmentDelete(ctx context.Context, d *sche
 }
 
 func waitForReservedIPAssignmentReady(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int,
+) (interface{}, error) {
 	log.Printf(
 		"[INFO] Waiting for reserved IP (%s) to have %s of %s",
 		d.Get("ip_address").(string), attribute, target)
@@ -139,10 +140,10 @@ func waitForReservedIPAssignmentReady(
 }
 
 func newReservedIPAssignmentStateRefreshFunc(
-	d *schema.ResourceData, attribute string, meta interface{}, actionID int) retry.StateRefreshFunc {
+	d *schema.ResourceData, _ string, meta interface{}, actionID int,
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		log.Printf("[INFO] Refreshing the reserved IP state")
 		action, _, err := client.ReservedIPActions.Get(context.Background(), d.Get("ip_address").(string), actionID)
 		if err != nil {
@@ -154,7 +155,7 @@ func newReservedIPAssignmentStateRefreshFunc(
 	}
 }
 
-func resourceDigitalOceanReservedIPAssignmentImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanReservedIPAssignmentImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(id.PrefixedUniqueId(fmt.Sprintf("%s-%s-", s[1], s[0])))

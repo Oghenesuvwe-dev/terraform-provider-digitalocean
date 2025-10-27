@@ -199,7 +199,6 @@ func resourceDigitalOceanUptimeAlertDelete(ctx context.Context, d *schema.Resour
 
 	// Delete the uptime alert
 	_, err := client.UptimeChecks.DeleteAlert(ctx, checkID, d.Id())
-
 	if err != nil {
 		return diag.Errorf("Error deleting uptime alerts: %s", err)
 	}
@@ -244,7 +243,7 @@ func flattenNotifications(alerts *godo.Notifications) []interface{} {
 	}
 }
 
-func resourceDigitalOceanUptimeAlertImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanUptimeAlertImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 

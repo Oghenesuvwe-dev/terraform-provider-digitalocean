@@ -107,7 +107,7 @@ func ResourceDigitalOceanBucket() *schema.Resource {
 						},
 					},
 				},
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return old == "1" && new == "0"
 				},
 			},
@@ -138,7 +138,7 @@ func ResourceDigitalOceanBucket() *schema.Resource {
 						"prefix": {
 							Type:     schema.TypeString,
 							Optional: true,
-							ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
+							ValidateFunc: func(v interface{}, _ string) (ws []string, es []error) {
 								if strings.HasPrefix(v.(string), "/") {
 									ws = append(ws, "prefix begins with `/`. In most cases, this should be excluded.")
 								}
@@ -209,7 +209,6 @@ func ResourceDigitalOceanBucket() *schema.Resource {
 func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error creating bucket: %s", err)
 	}
@@ -238,7 +237,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Error creating Spaces bucket: %s", err)
 	}
@@ -257,7 +255,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.Errorf("Failed to check availability of Spaces bucket %s: %s", name, err)
 	}
@@ -271,7 +268,6 @@ func resourceDigitalOceanBucketCreate(ctx context.Context, d *schema.ResourceDat
 func resourceDigitalOceanBucketUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error updating bucket: %s", err)
 	}
@@ -305,10 +301,9 @@ func resourceDigitalOceanBucketUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanBucketRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanBucketRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanBucketRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error reading bucket: %s", err)
 	}
@@ -487,7 +482,6 @@ func resourceDigitalOceanBucketRead(ctx context.Context, d *schema.ResourceData,
 func resourceDigitalOceanBucketDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
-
 	if err != nil {
 		return diag.Errorf("Error deleting bucket: %s", err)
 	}
@@ -734,7 +728,7 @@ func resourceDigitalOceanBucketLifecycleUpdate(s3conn *s3.S3, d *schema.Resource
 	return nil
 }
 
-func resourceDigitalOceanBucketImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanBucketImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 
@@ -805,7 +799,7 @@ func expirationHash(v interface{}) int {
 	return util.SDKHashString(buf.String())
 }
 
-func validateS3BucketLifecycleTimestamp(v interface{}, k string) (ws []string, errors []error) {
+func validateS3BucketLifecycleTimestamp(v interface{}, _ string) (ws []string, errors []error) {
 	value := v.(string)
 	_, err := time.Parse(time.RFC3339, fmt.Sprintf("%sT00:00:00Z", value))
 	if err != nil {

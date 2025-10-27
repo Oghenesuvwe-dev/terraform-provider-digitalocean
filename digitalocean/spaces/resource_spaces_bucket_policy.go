@@ -43,7 +43,7 @@ func ResourceDigitalOceanSpacesBucketPolicy() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return CompareSpacesBucketPolicy(old, new)
 				},
 				StateFunc: func(v interface{}) string {
@@ -67,7 +67,7 @@ func s3connFromSpacesBucketPolicyResourceData(d *schema.ResourceData, meta inter
 	return svc, nil
 }
 
-func resourceDigitalOceanBucketPolicyImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanBucketPolicyImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 
@@ -111,7 +111,7 @@ func resourceDigitalOceanBucketPolicyCreate(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanBucketPolicyRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanBucketPolicyRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn, err := s3connFromSpacesBucketPolicyResourceData(d, meta)
 	if err != nil {
 		return diag.Errorf("Error occurred while fetching Spaces bucket policy: %s", err)
@@ -137,7 +137,7 @@ func resourceDigitalOceanBucketPolicyUpdate(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanBucketPolicyCreate(ctx, d, meta)
 }
 
-func resourceDigitalOceanBucketPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanBucketPolicyDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn, err := s3connFromSpacesBucketPolicyResourceData(d, meta)
 	if err != nil {
 		return diag.Errorf("Error occurred while deleting Spaces bucket policy: %s", err)
@@ -149,7 +149,6 @@ func resourceDigitalOceanBucketPolicyDelete(ctx context.Context, d *schema.Resou
 	_, err = conn.DeleteBucketPolicy(&s3.DeleteBucketPolicyInput{
 		Bucket: aws.String(bucket),
 	})
-
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok && awsErr.Code() == "BucketDeleted" {
 			return diag.Errorf("Unable to remove Spaces bucket policy because bucket '%s' is already deleted", bucket)

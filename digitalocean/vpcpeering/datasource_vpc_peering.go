@@ -53,7 +53,7 @@ func DataSourceDigitalOceanVPCPeering() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVPCPeeringRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func dataSourceDigitalOceanVPCPeeringRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	var foundVPCPeering *godo.VPCPeering
 
@@ -100,7 +100,6 @@ func listVPCPeerings(client *godo.Client) ([]*godo.VPCPeering, error) {
 
 	for {
 		peerings, resp, err := client.VPCs.ListVPCPeerings(context.Background(), opts)
-
 		if err != nil {
 			return peeringsList, fmt.Errorf("error retrieving VPC Peerings: %s", err)
 		}

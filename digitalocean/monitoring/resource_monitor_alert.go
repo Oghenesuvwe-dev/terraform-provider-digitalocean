@@ -299,7 +299,6 @@ func resourceDigitalOceanMonitorAlertRead(ctx context.Context, d *schema.Resourc
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	alert, resp, err := client.Monitoring.GetAlertPolicy(ctx, d.Id())
-
 	if err != nil {
 		if resp != nil && resp.StatusCode == 404 {
 			log.Printf("[DEBUG] Alert (%s) was not found - removing from state", d.Id())
@@ -323,7 +322,7 @@ func resourceDigitalOceanMonitorAlertRead(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
-func resourceDigitalOceanMonitorAlertDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanMonitorAlertDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting the monitor alert")

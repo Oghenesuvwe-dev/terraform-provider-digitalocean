@@ -73,7 +73,6 @@ func resourceDigitalOceanDropletSnapshotCreate(ctx context.Context, d *schema.Re
 	}
 
 	snapshot, err := findSnapshotInSnapshotList(context.Background(), client, *action)
-
 	if err != nil {
 		return diag.Errorf("Error retrieving Droplet Snapshot: %s", err)
 	}
@@ -98,7 +97,7 @@ func resourceDigitalOceanDropletSnapshotCreate(ctx context.Context, d *schema.Re
 	return resourceDigitalOceanDropletSnapshotRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDropletSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDropletSnapshotRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	snapshot, resp, err := client.Snapshots.Get(context.Background(), d.Id())
@@ -122,7 +121,7 @@ func resourceDigitalOceanDropletSnapshotRead(ctx context.Context, d *schema.Reso
 	return nil
 }
 
-func resourceDigitalOceanDropletSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDropletSnapshotDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting snapshot: %s", d.Id())

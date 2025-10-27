@@ -239,7 +239,7 @@ func resourceDigitalOceanSpacesBucketObjectCreate(ctx context.Context, d *schema
 	return resourceDigitalOceanSpacesBucketObjectPut(ctx, d, meta)
 }
 
-func resourceDigitalOceanSpacesBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSpacesBucketObjectRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	s3conn, err := s3connFromResourceData(d, meta)
 	if err != nil {
 		return diag.FromErr(err)
@@ -253,7 +253,6 @@ func resourceDigitalOceanSpacesBucketObjectRead(ctx context.Context, d *schema.R
 			Bucket: aws.String(bucket),
 			Key:    aws.String(key),
 		})
-
 	if err != nil {
 		// If S3 returns a 404 Request Failure, mark the object as destroyed
 		if awsErr, ok := err.(awserr.RequestFailure); ok && awsErr.StatusCode() == 404 {
@@ -332,7 +331,7 @@ func resourceDigitalOceanSpacesBucketObjectUpdate(ctx context.Context, d *schema
 	return resourceDigitalOceanSpacesBucketObjectRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanSpacesBucketObjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSpacesBucketObjectDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	s3conn, err := s3connFromResourceData(d, meta)
 	if err != nil {
 		return diag.FromErr(err)
@@ -356,7 +355,7 @@ func resourceDigitalOceanSpacesBucketObjectDelete(ctx context.Context, d *schema
 	return nil
 }
 
-func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors []error) {
+func validateMetadataIsLowerCase(v interface{}, _ string) (ws []string, errors []error) {
 	value := v.(map[string]interface{})
 
 	for k := range value {
@@ -369,9 +368,9 @@ func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors [
 }
 
 func resourceDigitalOceanSpacesBucketObjectCustomizeDiff(
-	ctx context.Context,
+	_ context.Context,
 	d *schema.ResourceDiff,
-	meta interface{},
+	_ interface{},
 ) error {
 	if d.HasChange("etag") {
 		d.SetNewComputed("version_id")
@@ -413,7 +412,6 @@ func deleteAllS3ObjectVersions(conn *s3.S3, bucketName, key string, force, ignor
 					Key:       objectVersion.Key,
 					VersionId: objectVersion.VersionId,
 				})
-
 				if err != nil {
 					log.Printf("[ERROR] Error getting Spaces Bucket (%s) Object (%s) Version (%s) metadata: %s", bucketName, objectKey, objectVersionID, err)
 					lastErr = err
@@ -429,7 +427,6 @@ func deleteAllS3ObjectVersions(conn *s3.S3, bucketName, key string, force, ignor
 							Status: aws.String(s3.ObjectLockLegalHoldStatusOff),
 						},
 					})
-
 					if err != nil {
 						log.Printf("[ERROR] Error putting Spaces Bucket (%s) Object (%s) Version(%s) legal hold: %s", bucketName, objectKey, objectVersionID, err)
 						lastErr = err
@@ -438,7 +435,6 @@ func deleteAllS3ObjectVersions(conn *s3.S3, bucketName, key string, force, ignor
 
 					// Attempt to delete again.
 					err = deleteS3ObjectVersion(conn, bucketName, objectKey, objectVersionID, force)
-
 					if err != nil {
 						lastErr = err
 					}
@@ -490,7 +486,6 @@ func deleteAllS3ObjectVersions(conn *s3.S3, bucketName, key string, force, ignor
 
 			// Delete markers have no object lock protections.
 			err := deleteS3ObjectVersion(conn, bucketName, deleteMarkerKey, deleteMarkerVersionID, false)
-
 			if err != nil {
 				lastErr = err
 			}
@@ -536,7 +531,6 @@ func deleteS3ObjectVersion(conn *s3.S3, b, k, v string, force bool) error {
 
 	log.Printf("[INFO] Deleting Spaces Bucket (%s) Object (%s) Version: %s", b, k, v)
 	_, err := conn.DeleteObject(input)
-
 	if err != nil {
 		log.Printf("[WARN] Error deleting Spaces Bucket (%s) Object (%s) Version (%s): %s", b, k, v, err)
 	}

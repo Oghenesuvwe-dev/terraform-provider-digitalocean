@@ -62,7 +62,6 @@ func TestAccCheckDigitalOceanDropletExists(n string, droplet *godo.Droplet) reso
 
 		// Try to find the Droplet
 		retrieveDroplet, _, err := client.Droplets.Get(context.Background(), id)
-
 		if err != nil {
 			return err
 		}
@@ -90,7 +89,7 @@ resource "digitalocean_droplet" "foobar" {
 
 // TakeSnapshotsOfDroplet takes three snapshots of the given Droplet. One will have the suffix -1 and two will have -0.
 func TakeSnapshotsOfDroplet(snapName string, droplet *godo.Droplet, snapshotsIDs *[]int) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		client := TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 		for i := 0; i < 3; i++ {
 			err := takeSnapshotOfDroplet(snapName, i%2, droplet)
@@ -121,7 +120,7 @@ func takeSnapshotOfDroplet(snapName string, intSuffix int, droplet *godo.Droplet
 }
 
 func DeleteDropletSnapshots(snapshotsId *[]int) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		log.Printf("Deleting Droplet snapshots")
 
 		client := TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()

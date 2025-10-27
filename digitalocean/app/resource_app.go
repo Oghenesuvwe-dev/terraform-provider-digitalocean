@@ -167,7 +167,6 @@ func resourceDigitalOceanAlertDestinationUpdate(appID string, existingAlerts, sc
 				Emails:        schemaAlert.Emails,
 				SlackWebhooks: schemaAlert.SlackWebhooks,
 			})
-
 			if err != nil {
 				return err
 			}
@@ -178,7 +177,7 @@ func resourceDigitalOceanAlertDestinationUpdate(appID string, existingAlerts, sc
 	return nil
 }
 
-func resourceDigitalOceanAppRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanAppRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	app, resp, err := client.Apps.Get(context.Background(), d.Id())
@@ -222,7 +221,7 @@ func resourceDigitalOceanAppRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
-func appDedicatedIps(d *schema.ResourceData, app *godo.App) []interface{} {
+func appDedicatedIps(_ *schema.ResourceData, app *godo.App) []interface{} {
 	remote := make([]interface{}, 0, len(app.DedicatedIps))
 	for _, change := range app.DedicatedIps {
 		rawChange := map[string]interface{}{
@@ -265,7 +264,7 @@ func resourceDigitalOceanAppUpdate(ctx context.Context, d *schema.ResourceData, 
 	return resourceDigitalOceanAppRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanAppDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanAppDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting App: %s", d.Id())
@@ -279,7 +278,7 @@ func resourceDigitalOceanAppDelete(ctx context.Context, d *schema.ResourceData, 
 }
 
 func waitForAppDeployment(client *godo.Client, id string, timeout time.Duration) error {
-	tickerInterval := 10 //10s
+	tickerInterval := 10 // 10s
 	timeoutSeconds := int(timeout.Seconds())
 	n := 0
 

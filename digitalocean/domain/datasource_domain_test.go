@@ -52,8 +52,7 @@ data "digitalocean_domain" "foobar" {
 }
 
 func testAccCheckDataSourceDigitalOceanDomainAttributes(domain *godo.Domain, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-
+	return func(_ *terraform.State) error {
 		if domain.Name != name {
 			return fmt.Errorf("Bad name: %s", domain.Name)
 		}
@@ -77,7 +76,6 @@ func testAccCheckDataSourceDigitalOceanDomainExists(n string, domain *godo.Domai
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		foundDomain, _, err := client.Domains.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

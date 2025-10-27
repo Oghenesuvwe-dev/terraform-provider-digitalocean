@@ -73,7 +73,7 @@ func resourceDigitalOceanReservedIPV6Create(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanReservedIPV6Read(ctx, d, meta)
 }
 
-func resourceDigitalOceanReservedIPV6Read(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanReservedIPV6Read(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Reading the details of the reserved IPv6 %s", d.Id())
@@ -133,7 +133,7 @@ func resourceDigitalOceanReservedIPV6Delete(ctx context.Context, d *schema.Resou
 	return nil
 }
 
-func resourceDigitalOceanReservedIPV6Import(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanReservedIPV6Import(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	reservedIP, resp, err := client.ReservedIPV6s.Get(context.Background(), d.Id())
 	if resp.StatusCode != 404 {
@@ -154,7 +154,8 @@ func resourceDigitalOceanReservedIPV6Import(ctx context.Context, d *schema.Resou
 }
 
 func waitForReservedIPV6Ready(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int,
+) (interface{}, error) {
 	log.Printf(
 		"[INFO] Waiting for reserved IPv6 (%s) to have %s of %s",
 		d.Id(), attribute, target)
@@ -174,10 +175,10 @@ func waitForReservedIPV6Ready(
 }
 
 func newReservedIPV6StateRefreshFunc(
-	d *schema.ResourceData, meta interface{}, actionID int) retry.StateRefreshFunc {
+	d *schema.ResourceData, meta interface{}, actionID int,
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		log.Printf("[INFO] Assigning the reserved IPv6 to the Droplet")
 		action, _, err := client.Actions.Get(context.Background(), actionID)
 		if err != nil {

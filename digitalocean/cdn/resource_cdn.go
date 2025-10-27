@@ -17,9 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
-var (
-	needsCloudflareCert = "needs-cloudflare-cert"
-)
+var needsCloudflareCert = "needs-cloudflare-cert"
 
 func ResourceDigitalOceanCDN() *schema.Resource {
 	return &schema.Resource{
@@ -103,7 +101,7 @@ func resourceDigitalOceanCDNv0() *schema.Resource {
 	}
 }
 
-func migrateCDNStateV0toV1(ctx context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func migrateCDNStateV0toV1(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if len(rawState) == 0 {
 		log.Println("[DEBUG] Empty state; nothing to migrate.")
 		return rawState, nil
@@ -275,7 +273,6 @@ func resourceDigitalOceanCDNUpdate(ctx context.Context, d *schema.ResourceData, 
 			TTL: uint32(d.Get("ttl").(int)),
 		}
 		_, _, err := client.CDNs.UpdateTTL(context.Background(), d.Id(), ttlUpdateRequest)
-
 		if err != nil {
 			return diag.Errorf("Error updating CDN TTL: %s", err)
 		}
@@ -302,7 +299,6 @@ func resourceDigitalOceanCDNUpdate(ctx context.Context, d *schema.ResourceData, 
 		}
 
 		_, _, err := client.CDNs.UpdateCustomDomain(context.Background(), d.Id(), cdnUpdateRequest)
-
 		if err != nil {
 			return diag.Errorf("Error updating CDN custom domain: %s", err)
 		}

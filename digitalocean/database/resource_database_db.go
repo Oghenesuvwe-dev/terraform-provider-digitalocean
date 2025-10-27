@@ -60,7 +60,7 @@ func resourceDigitalOceanDatabaseDBCreate(ctx context.Context, d *schema.Resourc
 	return resourceDigitalOceanDatabaseDBRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseDBRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseDBRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)
@@ -81,7 +81,7 @@ func resourceDigitalOceanDatabaseDBRead(ctx context.Context, d *schema.ResourceD
 	return nil
 }
 
-func resourceDigitalOceanDatabaseDBDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseDBDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)
@@ -96,7 +96,7 @@ func resourceDigitalOceanDatabaseDBDelete(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
-func resourceDigitalOceanDatabaseDBImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseDBImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(makeDatabaseDBID(s[0], s[1]))

@@ -143,7 +143,6 @@ func resourceDigitalOceanUptimeCheckDelete(ctx context.Context, d *schema.Resour
 
 	// Delete the uptime check
 	_, err := client.UptimeChecks.Delete(ctx, d.Id())
-
 	if err != nil {
 		return diag.Errorf("Error deleting uptime checks: %s", err)
 	}
@@ -151,7 +150,7 @@ func resourceDigitalOceanUptimeCheckDelete(ctx context.Context, d *schema.Resour
 	return nil
 }
 
-func resourceDigitalOceanUptimeCheckRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanUptimeCheckRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	check, resp, err := client.UptimeChecks.Get(context.Background(), d.Id())

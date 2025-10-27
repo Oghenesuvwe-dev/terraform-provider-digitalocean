@@ -101,7 +101,7 @@ func ResourceDigitalOceanCustomImage() *schema.Resource {
 		},
 
 		// Images can not currently be removed from a region.
-		CustomizeDiff: customdiff.ForceNewIfChange("regions", func(ctx context.Context, old, new, meta interface{}) bool {
+		CustomizeDiff: customdiff.ForceNewIfChange("regions", func(_ context.Context, old, new, _ interface{}) bool {
 			remove, _ := util.GetSetChanges(old.(*schema.Set), new.(*schema.Set))
 			return len(remove.List()) > 0
 		}),
@@ -269,7 +269,7 @@ func waitForImage(ctx context.Context, d *schema.ResourceData, target string, pe
 	return stateConf.WaitForStateContext(ctx)
 }
 
-func imageStateRefreshFunc(ctx context.Context, d *schema.ResourceData, state string, meta interface{}) retry.StateRefreshFunc {
+func imageStateRefreshFunc(ctx context.Context, d *schema.ResourceData, _ string, meta interface{}) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		client := meta.(*config.CombinedConfig).GodoClient()
 

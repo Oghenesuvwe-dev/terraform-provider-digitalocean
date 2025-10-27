@@ -110,8 +110,7 @@ func ResourceDigitalOceanVolume() *schema.Resource {
 			"tags": tag.TagsSchema(),
 		},
 
-		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
+		CustomizeDiff: func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 			// if the new size of the volume is smaller than the old one return an error since
 			// only expanding the volume is allowed
 			oldSize, newSize := diff.GetChange("size")
@@ -196,7 +195,7 @@ func resourceDigitalOceanVolumeUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanVolumeRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVolumeRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	volume, resp, err := client.Storage.GetVolume(context.Background(), d.Id())
@@ -234,7 +233,7 @@ func resourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
-func resourceDigitalOceanVolumeDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVolumeDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting volume: %s", d.Id())

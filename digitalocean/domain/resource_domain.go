@@ -70,7 +70,7 @@ func resourceDigitalOceanDomainCreate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanDomainRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDomainRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	domain, resp, err := client.Domains.Get(context.Background(), d.Id())
@@ -92,7 +92,7 @@ func resourceDigitalOceanDomainRead(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
-func resourceDigitalOceanDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDomainDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting Domain: %s", d.Id())

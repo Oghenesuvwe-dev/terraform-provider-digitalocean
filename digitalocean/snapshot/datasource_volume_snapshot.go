@@ -73,7 +73,7 @@ func DataSourceDigitalOceanVolumeSnapshot() *schema.Resource {
 }
 
 // dataSourceDoSnapshotRead performs the Snapshot lookup.
-func dataSourceDigitalOceanVolumeSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanVolumeSnapshotRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name, hasName := d.GetOk("name")
@@ -93,7 +93,6 @@ func dataSourceDigitalOceanVolumeSnapshotRead(ctx context.Context, d *schema.Res
 
 	for {
 		snapshots, resp, err := client.Snapshots.ListVolume(context.Background(), opts)
-
 		if err != nil {
 			return diag.Errorf("Error retrieving volume snapshots: %s", err)
 		}

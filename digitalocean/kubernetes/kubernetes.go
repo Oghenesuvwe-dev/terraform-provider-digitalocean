@@ -372,7 +372,7 @@ func flattenControlPlaneFirewallOpts(opts *godo.KubernetesControlPlaneFirewall) 
 	return result
 }
 
-func flattenNodePool(d *schema.ResourceData, keyPrefix string, pool *godo.KubernetesNodePool, parentTags ...string) []interface{} {
+func flattenNodePool(d *schema.ResourceData, keyPrefix string, pool *godo.KubernetesNodePool, _ ...string) []interface{} {
 	rawPool := map[string]interface{}{
 		"id":                pool.ID,
 		"name":              pool.Name,

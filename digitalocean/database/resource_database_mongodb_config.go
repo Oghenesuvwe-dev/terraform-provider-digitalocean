@@ -41,7 +41,7 @@ func ResourceDigitalOceanDatabaseMongoDBConfig() *schema.Resource {
 					},
 					true,
 				),
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return strings.EqualFold(old, new)
 				},
 			},
@@ -150,7 +150,7 @@ func resourceDigitalOceanDatabaseMongoDBConfigRead(ctx context.Context, d *schem
 	return nil
 }
 
-func resourceDigitalOceanDatabaseMongoDBConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseMongoDBConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 
 	warn := []diag.Diagnostic{
@@ -164,7 +164,7 @@ func resourceDigitalOceanDatabaseMongoDBConfigDelete(ctx context.Context, d *sch
 	return warn
 }
 
-func resourceDigitalOceanDatabaseMongoDBConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseMongoDBConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 
 	d.SetId(makeDatabaseMongoDBConfigID(clusterID))

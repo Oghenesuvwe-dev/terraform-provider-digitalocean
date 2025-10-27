@@ -12,7 +12,6 @@ func DataSourceDigitalOceanTag() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanTagRead,
 		Schema: map[string]*schema.Schema{
-
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
@@ -47,7 +46,7 @@ func DataSourceDigitalOceanTag() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanTagRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name := d.Get("name").(string)

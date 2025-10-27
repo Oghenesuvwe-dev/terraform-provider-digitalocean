@@ -358,7 +358,7 @@ resource "digitalocean_project" "test" {
 				Config: fmt.Sprintf(projectConfig, projectName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckFunc(
-						func(s *terraform.State) error {
+						func(_ *terraform.State) error {
 							time.Sleep(10 * time.Second)
 							return nil
 						},
@@ -952,7 +952,6 @@ func testAccCheckDigitalOceanLoadbalancerExists(n string, loadbalancer *godo.Loa
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		lb, _, err := client.LoadBalancers.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

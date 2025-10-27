@@ -53,7 +53,7 @@ func ResourceDigitalOceanRecord() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.NoZeroValues,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					domain := d.Get("domain").(string) + "."
 
 					return (old == "@" && new == domain) || (old+"."+domain == new)
@@ -88,7 +88,7 @@ func ResourceDigitalOceanRecord() *schema.Resource {
 			"value": {
 				Type:     schema.TypeString,
 				Required: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					domain := d.Get("domain").(string) + "."
 
 					return (old == "@" && new == domain) || (old == new+"."+domain)
@@ -117,7 +117,7 @@ func ResourceDigitalOceanRecord() *schema.Resource {
 			},
 		},
 
-		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
+		CustomizeDiff: func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 			recordType := diff.Get("type").(string)
 
 			_, hasPriority := diff.GetOkExists("priority")
@@ -180,7 +180,7 @@ func resourceDigitalOceanRecordCreate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanRecordRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanRecordRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanRecordRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	domain := d.Get("domain").(string)
 	ttl := d.Get("ttl")
@@ -201,7 +201,7 @@ func resourceDigitalOceanRecordRead(ctx context.Context, d *schema.ResourceData,
 		return diag.FromErr(err)
 	}
 
-	var warn = []diag.Diagnostic{}
+	warn := []diag.Diagnostic{}
 
 	if ttl != rec.TTL {
 		ttlChangeWarn := fmt.Sprintf("The TTL for record ID %d changed from %d to %d. DNS requires that multiple records with the same FQDN share the same TTL. If inconsistent TTLs are provided, DigitalOcean will rectify them automatically.\n\nFor reference, see RFC 2181, section 5.2: https://www.rfc-editor.org/rfc/rfc2181#section-5.", rec.ID, ttl, rec.TTL)
@@ -238,7 +238,7 @@ func resourceDigitalOceanRecordRead(ctx context.Context, d *schema.ResourceData,
 	return warn
 }
 
-func resourceDigitalOceanRecordImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanRecordImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		// Validate that this is an ID by making sure it can be converted into an int
@@ -277,7 +277,7 @@ func resourceDigitalOceanRecordUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceDigitalOceanRecordRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanRecordDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanRecordDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	domain := d.Get("domain").(string)

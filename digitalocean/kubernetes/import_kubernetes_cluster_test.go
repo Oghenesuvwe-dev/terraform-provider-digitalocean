@@ -14,15 +14,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
-var (
-	clusterStateIgnore = []string{
-		"kube_config",                      // because kube_config was completely different for imported state
-		"node_pool.0.node_count",           // because import test failed before DO had started the node in pool
-		"updated_at",                       // because removing default tag updates the resource outside of Terraform
-		"registry_integration",             // registry_integration state can not be known via the API
-		"destroy_all_associated_resources", // destroy_all_associated_resources state can not be known via the API
-	}
-)
+var clusterStateIgnore = []string{
+	"kube_config",                      // because kube_config was completely different for imported state
+	"node_pool.0.node_count",           // because import test failed before DO had started the node in pool
+	"updated_at",                       // because removing default tag updates the resource outside of Terraform
+	"registry_integration",             // registry_integration state can not be known via the API
+	"destroy_all_associated_resources", // destroy_all_associated_resources state can not be known via the API
+}
 
 func TestAccDigitalOceanKubernetesCluster_ImportBasic(t *testing.T) {
 	clusterName := acceptance.RandomTestName()
@@ -107,7 +105,7 @@ func TestAccDigitalOceanKubernetesCluster_ImportNonDefaultNodePool(t *testing.T)
 }
 
 func testAccDigitalOceanKubernetesRemoveDefaultNodePoolTag(clusterName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		clusters, resp, err := client.Kubernetes.List(context.Background(), &godo.ListOptions{})

@@ -25,8 +25,7 @@ func ResourceDigitalOceanFirewall() *schema.Resource {
 
 		Schema: firewallSchema(),
 
-		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
+		CustomizeDiff: func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 			inboundRules, hasInbound := diff.GetOk("inbound_rule")
 			outboundRules, hasOutbound := diff.GetOk("outbound_rule")
 
@@ -82,7 +81,7 @@ func resourceDigitalOceanFirewallCreate(ctx context.Context, d *schema.ResourceD
 	return resourceDigitalOceanFirewallRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanFirewallRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanFirewallRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	// Retrieve the firewall properties for updating the state
@@ -140,7 +139,7 @@ func resourceDigitalOceanFirewallUpdate(ctx context.Context, d *schema.ResourceD
 	return resourceDigitalOceanFirewallRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanFirewallDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanFirewallDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting firewall: %s", d.Id())
@@ -160,7 +159,7 @@ func resourceDigitalOceanFirewallDelete(ctx context.Context, d *schema.ResourceD
 	return nil
 }
 
-func firewallRequest(d *schema.ResourceData, client *godo.Client) (*godo.FirewallRequest, error) {
+func firewallRequest(d *schema.ResourceData, _ *godo.Client) (*godo.FirewallRequest, error) {
 	// Build up our firewall request
 	opts := &godo.FirewallRequest{
 		Name: d.Get("name").(string),

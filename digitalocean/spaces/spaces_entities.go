@@ -11,10 +11,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var (
-	// SpacesRegions is a list of DigitalOcean regions that support Spaces.
-	SpacesRegions = []string{"ams3", "atl1", "blr1", "fra1", "lon1", "nyc3", "sfo2", "sfo3", "sgp1", "syd1", "tor1"}
-)
+// SpacesRegions is a list of DigitalOcean regions that support Spaces.
+var SpacesRegions = []string{"ams3", "atl1", "blr1", "fra1", "lon1", "nyc3", "sfo2", "sfo3", "sgp1", "syd1", "tor1"}
 
 type bucketMetadataStruct struct {
 	name   string
@@ -147,7 +145,7 @@ func getSpacesBucketsInRegion(meta interface{}, region string) ([]*s3.Bucket, er
 	return output.Buckets, nil
 }
 
-func getDigitalOceanBuckets(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanBuckets(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	// The DigitalOcean API does not currently return what regions have Spaces available. Thus, this
 	// function hard-codes the regions in which Spaces operates.
 	var buckets []interface{}
@@ -170,7 +168,7 @@ func getDigitalOceanBuckets(meta interface{}, extra map[string]interface{}) ([]i
 	return buckets, nil
 }
 
-func flattenSpacesBucket(rawBucketMetadata, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenSpacesBucket(rawBucketMetadata, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	bucketMetadata := rawBucketMetadata.(*bucketMetadataStruct)
 
 	name := bucketMetadata.name

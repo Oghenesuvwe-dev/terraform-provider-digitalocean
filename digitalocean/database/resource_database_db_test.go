@@ -86,7 +86,6 @@ func testAccCheckDigitalOceanDatabaseDBExists(n string, databaseDB *godo.Databas
 		name := rs.Primary.Attributes["name"]
 
 		foundDatabaseDB, _, err := client.Databases.GetDB(context.Background(), clusterID, name)
-
 		if err != nil {
 			return err
 		}
@@ -131,8 +130,7 @@ func testAccCheckDigitalOceanDatabaseDBNotExists(n string, databaseDBName string
 }
 
 func testAccCheckDigitalOceanDatabaseDBAttributes(databaseDB *godo.DatabaseDB, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-
+	return func(_ *terraform.State) error {
 		if databaseDB.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseDB.Name)
 		}

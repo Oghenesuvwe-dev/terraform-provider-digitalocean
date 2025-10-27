@@ -56,7 +56,7 @@ func ResourceDigitalOceanProject() *schema.Resource {
 				Optional:     true,
 				Description:  "the environment of the project's resources",
 				ValidateFunc: validation.StringInSlice([]string{"development", "staging", "production"}, true),
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return strings.EqualFold(old, new)
 				},
 			},
@@ -119,7 +119,6 @@ func resourceDigitalOceanProjectCreate(ctx context.Context, d *schema.ResourceDa
 
 	log.Printf("[DEBUG] Project create request: %#v", projectRequest)
 	project, _, err := client.Projects.Create(context.Background(), projectRequest)
-
 	if err != nil {
 		return diag.Errorf("Error creating Project: %s", err)
 	}
@@ -127,7 +126,6 @@ func resourceDigitalOceanProjectCreate(ctx context.Context, d *schema.ResourceDa
 	if v, ok := d.GetOk("resources"); ok {
 
 		resources, err := assignResourcesToProject(client, project.ID, v.(*schema.Set))
-
 		if err != nil {
 
 			if project.ID != "" {
@@ -166,11 +164,10 @@ func resourceDigitalOceanProjectCreate(ctx context.Context, d *schema.ResourceDa
 	return resourceDigitalOceanProjectRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanProjectRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	project, resp, err := client.Projects.Get(context.Background(), d.Id())
-
 	if err != nil {
 		if resp != nil && resp.StatusCode == 404 {
 			log.Printf("[DEBUG] Project  (%s) was not found - removing from state", d.Id())
@@ -237,7 +234,6 @@ func resourceDigitalOceanProjectUpdate(ctx context.Context, d *schema.ResourceDa
 	}
 
 	_, _, err := client.Projects.Update(context.Background(), projectId, projectRequest)
-
 	if err != nil {
 		return diag.Errorf("Error updating Project: %s", err)
 	}

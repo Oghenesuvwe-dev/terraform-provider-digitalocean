@@ -275,7 +275,7 @@ func resourceDigitalOceanDatabaseKafkaConfigRead(ctx context.Context, d *schema.
 	return nil
 }
 
-func resourceDigitalOceanDatabaseKafkaConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseKafkaConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 
 	warn := []diag.Diagnostic{
@@ -289,7 +289,7 @@ func resourceDigitalOceanDatabaseKafkaConfigDelete(ctx context.Context, d *schem
 	return warn
 }
 
-func resourceDigitalOceanDatabaseKafkaConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseKafkaConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 
 	d.SetId(makeDatabaseKafkaConfigID(clusterID))

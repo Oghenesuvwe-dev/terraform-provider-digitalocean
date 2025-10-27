@@ -108,7 +108,7 @@ func resourceDigitalOceanGenAIFunctionRouteCreate(ctx context.Context, d *schema
 	return resourceDigitalOceanGenAIFunctionRouteRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanGenAIFunctionRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanGenAIFunctionRouteDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	agentUuid := d.Id()
@@ -134,7 +134,7 @@ func resourceDigitalOceanGenAIFunctionRouteDelete(ctx context.Context, d *schema
 	return nil
 }
 
-func resourceDigitalOceanGenAIFunctionRouteUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanGenAIFunctionRouteUpdate(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	agentUuid := d.Get("agent_id").(string)
 
@@ -189,7 +189,7 @@ func resourceDigitalOceanGenAIFunctionRouteUpdate(ctx context.Context, d *schema
 	return nil
 }
 
-func resourceDigitalOceanGenAIFunctionRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanGenAIFunctionRouteRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	agentUuid := d.Get("agent_id").(string)
 	if agentUuid == "" {

@@ -124,7 +124,7 @@ func resourceDigitalOceanReservedIPUpdate(ctx context.Context, d *schema.Resourc
 	return resourceDigitalOceanReservedIPRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanReservedIPRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanReservedIPRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Reading the details of the reserved IP %s", d.Id())
@@ -184,7 +184,7 @@ func resourceDigitalOceanReservedIPDelete(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
-func resourceDigitalOceanReservedIPImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanReservedIPImport(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	reservedIP, resp, err := client.ReservedIPs.Get(context.Background(), d.Id())
 	if resp.StatusCode != 404 {
@@ -205,7 +205,8 @@ func resourceDigitalOceanReservedIPImport(ctx context.Context, d *schema.Resourc
 }
 
 func waitForReservedIPReady(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, meta interface{}, actionID int,
+) (interface{}, error) {
 	log.Printf(
 		"[INFO] Waiting for reserved IP (%s) to have %s of %s",
 		d.Id(), attribute, target)
@@ -225,10 +226,10 @@ func waitForReservedIPReady(
 }
 
 func newReservedIPStateRefreshFunc(
-	d *schema.ResourceData, attribute string, meta interface{}, actionID int) retry.StateRefreshFunc {
+	d *schema.ResourceData, _ string, meta interface{}, actionID int,
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		log.Printf("[INFO] Assigning the reserved IP to the Droplet")
 		action, _, err := client.ReservedIPActions.Get(context.Background(), d.Id(), actionID)
 		if err != nil {

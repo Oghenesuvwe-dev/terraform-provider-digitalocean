@@ -357,7 +357,6 @@ func testAccCheckDigitalOceanDatabaseUserExists(n string, databaseUser *godo.Dat
 		name := rs.Primary.Attributes["name"]
 
 		foundDatabaseUser, _, err := client.Databases.GetUser(context.Background(), clusterID, name)
-
 		if err != nil {
 			return err
 		}
@@ -402,8 +401,7 @@ func testAccCheckDigitalOceanDatabaseUserNotExists(n string, databaseUserName st
 }
 
 func testAccCheckDigitalOceanDatabaseUserAttributes(databaseUser *godo.DatabaseUser, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-
+	return func(_ *terraform.State) error {
 		if databaseUser.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseUser.Name)
 		}

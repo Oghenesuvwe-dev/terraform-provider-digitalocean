@@ -223,7 +223,7 @@ func resourceDigitalOceanDatabaseRedisConfigRead(ctx context.Context, d *schema.
 	return nil
 }
 
-func resourceDigitalOceanDatabaseRedisConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseRedisConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 	warn := []diag.Diagnostic{
 		{
@@ -235,7 +235,7 @@ func resourceDigitalOceanDatabaseRedisConfigDelete(ctx context.Context, d *schem
 	return warn
 }
 
-func resourceDigitalOceanDatabaseRedisConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseRedisConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 	d.SetId(makeDatabaseRedisConfigID(clusterID))
 	d.Set("cluster_id", clusterID)

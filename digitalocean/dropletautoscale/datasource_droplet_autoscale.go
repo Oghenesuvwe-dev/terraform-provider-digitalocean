@@ -163,7 +163,7 @@ func DataSourceDigitalOceanDropletAutoscale() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDropletAutoscaleRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func dataSourceDigitalOceanDropletAutoscaleRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var foundDropletAutoscalePool *godo.DropletAutoscalePool

@@ -17,7 +17,6 @@ func DataSourceDigitalOceanVolume() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanVolumeRead,
 		Schema: map[string]*schema.Schema{
-
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
@@ -71,7 +70,7 @@ func DataSourceDigitalOceanVolume() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanVolumeRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name := d.Get("name").(string)
@@ -92,7 +91,6 @@ func dataSourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceDat
 
 	for {
 		volumes, resp, err := client.Storage.ListVolumes(context.Background(), opts)
-
 		if err != nil {
 			return diag.Errorf("Error retrieving volumes: %s", err)
 		}
@@ -112,7 +110,6 @@ func dataSourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceDat
 	}
 
 	volume, err := findVolumeByName(volumeList, name)
-
 	if err != nil {
 		return diag.FromErr(err)
 	}

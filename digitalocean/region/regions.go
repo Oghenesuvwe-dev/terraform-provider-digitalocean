@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func getDigitalOceanRegions(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanRegions(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	allRegions := []interface{}{}
@@ -21,7 +21,6 @@ func getDigitalOceanRegions(meta interface{}, extra map[string]interface{}) ([]i
 
 	for {
 		regions, resp, err := client.Regions.List(context.Background(), opts)
-
 		if err != nil {
 			return nil, fmt.Errorf("Error retrieving regions: %s", err)
 		}
@@ -45,7 +44,7 @@ func getDigitalOceanRegions(meta interface{}, extra map[string]interface{}) ([]i
 	return allRegions, nil
 }
 
-func flattenRegion(rawRegion, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenRegion(rawRegion, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	region := rawRegion.(godo.Region)
 
 	flattenedRegion := map[string]interface{}{}

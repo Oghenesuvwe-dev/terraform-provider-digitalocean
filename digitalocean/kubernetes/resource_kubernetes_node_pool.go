@@ -18,7 +18,6 @@ import (
 const DigitaloceanKubernetesDefaultNodePoolTag = "terraform:default-node-pool"
 
 func ResourceDigitalOceanKubernetesNodePool() *schema.Resource {
-
 	return &schema.Resource{
 		CreateContext: resourceDigitalOceanKubernetesNodePoolCreate,
 		ReadContext:   resourceDigitalOceanKubernetesNodePoolRead,
@@ -64,7 +63,7 @@ func resourceDigitalOceanKubernetesNodePoolCreate(ctx context.Context, d *schema
 	return resourceDigitalOceanKubernetesNodePoolRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanKubernetesNodePoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanKubernetesNodePoolRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	pool, resp, err := client.Kubernetes.GetNodePool(context.Background(), d.Get("cluster_id").(string), d.Id())
@@ -127,7 +126,7 @@ func resourceDigitalOceanKubernetesNodePoolUpdate(ctx context.Context, d *schema
 	return resourceDigitalOceanKubernetesNodePoolRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanKubernetesNodePoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanKubernetesNodePoolDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	_, err := client.Kubernetes.DeleteNodePool(context.Background(), d.Get("cluster_id").(string), d.Id())
 	if err != nil {
@@ -222,7 +221,6 @@ func digitaloceanKubernetesNodePoolCreate(client *godo.Client, timeout time.Dura
 	}
 
 	p, _, err := client.Kubernetes.CreateNodePool(context.Background(), clusterID, req)
-
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create new default node pool %s", err)
 	}
@@ -271,7 +269,6 @@ func digitaloceanKubernetesNodePoolUpdate(client *godo.Client, timeout time.Dura
 	}
 
 	p, resp, err := client.Kubernetes.UpdateNodePool(context.Background(), clusterID, poolID, req)
-
 	if err != nil {
 		if resp != nil && resp.StatusCode == 404 {
 			return nil, nil

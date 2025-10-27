@@ -97,7 +97,7 @@ func resourceDigitalOceanVolumeSnapshotUpdate(ctx context.Context, d *schema.Res
 	return resourceDigitalOceanVolumeSnapshotRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanVolumeSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVolumeSnapshotRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	snapshot, resp, err := client.Snapshots.Get(context.Background(), d.Id())
@@ -123,7 +123,7 @@ func resourceDigitalOceanVolumeSnapshotRead(ctx context.Context, d *schema.Resou
 	return nil
 }
 
-func resourceDigitalOceanVolumeSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVolumeSnapshotDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting snapshot: %s", d.Id())

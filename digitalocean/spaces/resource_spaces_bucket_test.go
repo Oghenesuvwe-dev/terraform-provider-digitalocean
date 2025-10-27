@@ -344,7 +344,8 @@ func TestAccDigitalOceanSpacesBucket_LifecycleBasic(t *testing.T) {
 				ImportStateId:     fmt.Sprintf("ams3,%s", name),
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"force_destroy", "acl"},
+					"force_destroy", "acl",
+				},
 			},
 			{
 				Config: testAccDigitalOceanSpacesBucketConfigWithVersioningLifecycle(name),
@@ -408,7 +409,8 @@ func TestAccDigitalOceanSpacesBucket_LifecycleExpireMarkerOnly(t *testing.T) {
 				ImportStateId:     fmt.Sprintf("ams3,%s", name),
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
-					"force_destroy", "acl"},
+					"force_destroy", "acl",
+				},
 			},
 			{
 				Config: testAccDigitalOceanBucketConfig(name),
@@ -458,14 +460,16 @@ func testAccGetS3ConnForSpacesBucket(rs *terraform.ResourceState) (*s3.S3, error
 
 	sesh, err := session.NewSession(&aws.Config{
 		Region:      aws.String(region),
-		Credentials: credentials.NewStaticCredentials(spacesAccessKeyId, spacesSecretAccessKey, "")},
+		Credentials: credentials.NewStaticCredentials(spacesAccessKeyId, spacesSecretAccessKey, ""),
+	},
 	)
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create S3 session (region=%s): %v", region, err)
 	}
 
 	svc := s3.New(sesh, &aws.Config{
-		Endpoint: aws.String(fmt.Sprintf("https://%s.digitaloceanspaces.com", region))},
+		Endpoint: aws.String(fmt.Sprintf("https://%s.digitaloceanspaces.com", region)),
+	},
 	)
 
 	return svc, nil
@@ -475,7 +479,7 @@ func testAccCheckDigitalOceanBucketDestroy(s *terraform.State) error {
 	return testAccCheckDigitalOceanBucketDestroyWithProvider(s, acceptance.TestAccProvider)
 }
 
-func testAccCheckDigitalOceanBucketDestroyWithProvider(s *terraform.State, provider *schema.Provider) error {
+func testAccCheckDigitalOceanBucketDestroyWithProvider(s *terraform.State, _ *schema.Provider) error {
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "digitalocean_spaces_bucket" {
 			continue
@@ -507,7 +511,7 @@ func testAccCheckDigitalOceanBucketExists(n string) resource.TestCheckFunc {
 	return testAccCheckDigitalOceanBucketExistsWithProvider(n, func() *schema.Provider { return acceptance.TestAccProvider })
 }
 
-func testAccCheckDigitalOceanBucketExistsWithProvider(n string, providerF func() *schema.Provider) resource.TestCheckFunc {
+func testAccCheckDigitalOceanBucketExistsWithProvider(n string, _ func() *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -526,7 +530,6 @@ func testAccCheckDigitalOceanBucketExistsWithProvider(n string, providerF func()
 		_, err = svc.HeadBucket(&s3.HeadBucketInput{
 			Bucket: aws.String(rs.Primary.ID),
 		})
-
 		if err != nil {
 			if spaces.IsAWSErr(err, s3.ErrCodeNoSuchBucket, "") {
 				return fmt.Errorf("Spaces bucket not found")
@@ -534,7 +537,6 @@ func testAccCheckDigitalOceanBucketExistsWithProvider(n string, providerF func()
 			return err
 		}
 		return nil
-
 	}
 }
 
@@ -557,7 +559,6 @@ func testAccCheckDigitalOceanDestroyBucket(n string) resource.TestCheckFunc {
 		_, err = svc.DeleteBucket(&s3.DeleteBucketInput{
 			Bucket: aws.String(rs.Primary.ID),
 		})
-
 		if err != nil {
 			return fmt.Errorf("Error destroying Bucket (%s) in testAccCheckDigitalOceanDestroyBucket: %s", rs.Primary.ID, err)
 		}
@@ -584,7 +585,6 @@ func testAccCheckDigitalOceanBucketCors(n string, corsRules []*s3.CORSRule) reso
 		out, err := svc.GetBucketCors(&s3.GetBucketCorsInput{
 			Bucket: aws.String(rs.Primary.ID),
 		})
-
 		if err != nil {
 			return fmt.Errorf("GetBucketCors error: %v", err)
 		}
@@ -609,7 +609,6 @@ func testAccCheckDigitalOceanBucketVersioning(n string, versioningStatus string)
 		out, err := svc.GetBucketVersioning(&s3.GetBucketVersioningInput{
 			Bucket: aws.String(rs.Primary.ID),
 		})
-
 		if err != nil {
 			return fmt.Errorf("GetBucketVersioning error: %v", err)
 		}

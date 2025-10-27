@@ -388,7 +388,8 @@ func ResourceDigitalOceanDatabasePostgreSQLConfig() *schema.Resource {
 						"max_background_workers": {
 							Type:     schema.TypeInt,
 							Optional: true,
-						}},
+						},
+					},
 				},
 			},
 		},
@@ -715,7 +716,7 @@ func resourceDigitalOceanDatabasePostgreSQLConfigRead(ctx context.Context, d *sc
 	return nil
 }
 
-func resourceDigitalOceanDatabasePostgreSQLConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabasePostgreSQLConfigDelete(_ context.Context, d *schema.ResourceData, _ interface{}) diag.Diagnostics {
 	d.SetId("")
 
 	warn := []diag.Diagnostic{
@@ -729,7 +730,7 @@ func resourceDigitalOceanDatabasePostgreSQLConfigDelete(ctx context.Context, d *
 	return warn
 }
 
-func resourceDigitalOceanDatabasePostgreSQLConfigImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabasePostgreSQLConfigImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	clusterID := d.Id()
 
 	d.SetId(makeDatabasePostgreSQLConfigID(clusterID))

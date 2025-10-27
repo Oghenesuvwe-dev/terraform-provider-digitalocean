@@ -275,7 +275,6 @@ func resourceDigitalOceanPartnerAttachmentDelete(ctx context.Context, d *schema.
 
 		return nil
 	})
-
 	if err != nil {
 		return diag.FromErr(err)
 	}
@@ -283,7 +282,7 @@ func resourceDigitalOceanPartnerAttachmentDelete(ctx context.Context, d *schema.
 	return nil
 }
 
-func resourceDigitalOceanPartnerAttachmentRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceDigitalOceanPartnerAttachmentRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	partnerAttachment, resp, err := client.PartnerAttachment.Get(context.Background(), d.Id())

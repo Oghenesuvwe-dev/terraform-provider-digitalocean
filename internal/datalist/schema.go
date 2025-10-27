@@ -79,7 +79,7 @@ func NewResource(config *ResourceConfig) *schema.Resource {
 }
 
 func dataListResourceRead(config *ResourceConfig) schema.ReadContextFunc {
-	return func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	return func(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 		extra := map[string]interface{}{}
 		for key := range config.ExtraQuerySchema {
 			extra[key] = d.Get(key)
@@ -157,7 +157,6 @@ func computeSortKeys(recordSchema map[string]*schema.Schema) []string {
 	}
 
 	return sortKeys
-
 }
 
 // Validate a ResourceConfig to ensure it conforms to this package's assumptions.

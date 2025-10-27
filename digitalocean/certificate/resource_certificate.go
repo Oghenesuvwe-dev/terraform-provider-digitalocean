@@ -74,7 +74,7 @@ func resourceDigitalOceanCertificateV0() *schema.Resource {
 				ValidateFunc: validation.NoZeroValues,
 				StateFunc:    util.HashStringStateFunc(),
 				// In order to support older statefiles with fully saved private_key
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					return new != "" && old == d.Get("private_key")
 				},
 			},
@@ -86,7 +86,7 @@ func resourceDigitalOceanCertificateV0() *schema.Resource {
 				ValidateFunc: validation.NoZeroValues,
 				StateFunc:    util.HashStringStateFunc(),
 				// In order to support older statefiles with fully saved leaf_certificate
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					return new != "" && old == d.Get("leaf_certificate")
 				},
 			},
@@ -98,7 +98,7 @@ func resourceDigitalOceanCertificateV0() *schema.Resource {
 				ValidateFunc: validation.NoZeroValues,
 				StateFunc:    util.HashStringStateFunc(),
 				// In order to support older statefiles with fully saved certificate_chain
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					return new != "" && old == d.Get("certificate_chain")
 				},
 			},
@@ -113,7 +113,7 @@ func resourceDigitalOceanCertificateV0() *schema.Resource {
 				ForceNew:      true,
 				ConflictsWith: []string{"private_key", "leaf_certificate", "certificate_chain"},
 				// The domains attribute is computed for custom certs and should be ignored in diffs.
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, _, _ string, d *schema.ResourceData) bool {
 					return d.Get("type") == "custom"
 				},
 			},
@@ -147,7 +147,7 @@ func resourceDigitalOceanCertificateV0() *schema.Resource {
 	}
 }
 
-func MigrateCertificateStateV0toV1(ctx context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func MigrateCertificateStateV0toV1(_ context.Context, rawState map[string]interface{}, _ interface{}) (map[string]interface{}, error) {
 	if len(rawState) == 0 {
 		log.Println("[DEBUG] Empty state; nothing to migrate.")
 		return rawState, nil
@@ -199,7 +199,6 @@ func resourceDigitalOceanCertificateCreate(ctx context.Context, d *schema.Resour
 			return diag.Errorf("`leaf_certificate` is required for when type is `custom` or empty")
 		}
 	} else if certificateType == "lets_encrypt" {
-
 		if _, ok := d.GetOk("domains"); !ok {
 			return diag.Errorf("`domains` is required for when type is `lets_encrypt`")
 		}
@@ -247,7 +246,7 @@ func resourceDigitalOceanCertificateCreate(ctx context.Context, d *schema.Resour
 	return resourceDigitalOceanCertificateRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanCertificateRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	// When the certificate type is lets_encrypt, the certificate
@@ -278,7 +277,6 @@ func resourceDigitalOceanCertificateRead(ctx context.Context, d *schema.Resource
 	}
 
 	return nil
-
 }
 
 func resourceDigitalOceanCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -313,7 +311,6 @@ func resourceDigitalOceanCertificateDelete(ctx context.Context, d *schema.Resour
 	}
 
 	return nil
-
 }
 
 func expandDigitalOceanCertificateDomains(domains []interface{}) []string {
@@ -343,7 +340,6 @@ func flattenDigitalOceanCertificateDomains(domains []string) *schema.Set {
 func newCertificateStateRefreshFunc(d *schema.ResourceData, meta interface{}) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		// Retrieve the certificate properties
 		uuid := d.Get("uuid").(string)
 		cert, _, err := client.Certificates.Get(context.Background(), uuid)

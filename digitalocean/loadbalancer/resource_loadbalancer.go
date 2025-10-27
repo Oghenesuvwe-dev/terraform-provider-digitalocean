@@ -40,7 +40,6 @@ func ResourceDigitalOceanLoadbalancer() *schema.Resource {
 		Schema: resourceDigitalOceanLoadBalancerV1(),
 
 		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
-
 			if _, hasHealthCheck := diff.GetOk("healthcheck"); hasHealthCheck {
 
 				healthCheckProtocol := diff.Get("healthcheck.0.protocol").(string)
@@ -118,7 +117,7 @@ func resourceDigitalOceanLoadBalancerV1() map[string]*schema.Schema {
 	return loadBalancerV1Schema
 }
 
-func loadbalancerDiffCheck(ctx context.Context, d *schema.ResourceDiff, v interface{}) error {
+func loadbalancerDiffCheck(_ context.Context, d *schema.ResourceDiff, _ interface{}) error {
 	typ, typSet := d.GetOk("type")
 	region, regionSet := d.GetOk("region")
 
@@ -161,7 +160,7 @@ func resourceDigitalOceanLoadBalancerV0() *schema.Resource {
 					"lb-medium",
 					"lb-large",
 				}, false),
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					if sizeUnit, ok := d.GetOk("size_unit"); ok {
 						switch {
 						case new == "lb-small" && sizeUnit.(int) == 1:
@@ -315,7 +314,7 @@ func resourceDigitalOceanLoadBalancerV0() *schema.Resource {
 			"sticky_sessions": {
 				Type:     schema.TypeList,
 				Optional: true,
-				Computed: true, //this needs to be computed as the API returns a struct with none as the type
+				Computed: true, // this needs to be computed as the API returns a struct with none as the type
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -588,7 +587,7 @@ func resourceDigitalOceanLoadBalancerV0() *schema.Resource {
 	}
 }
 
-func migrateLoadBalancerStateV0toV1(ctx context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func migrateLoadBalancerStateV0toV1(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if len(rawState) == 0 {
 		log.Println("[DEBUG] Empty state; nothing to migrate.")
 		return rawState, nil
@@ -748,7 +747,7 @@ func resourceDigitalOceanLoadbalancerCreate(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanLoadbalancerRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanLoadbalancerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanLoadbalancerRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Reading the details of the Loadbalancer %s", d.Id())
@@ -854,7 +853,7 @@ func resourceDigitalOceanLoadbalancerUpdate(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanLoadbalancerRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanLoadbalancerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanLoadbalancerDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting Load Balancer: %s", d.Id())
@@ -870,5 +869,4 @@ func resourceDigitalOceanLoadbalancerDelete(ctx context.Context, d *schema.Resou
 
 	d.SetId("")
 	return nil
-
 }
