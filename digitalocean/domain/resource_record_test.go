@@ -702,7 +702,7 @@ func testAccCheckDigitalOceanRecordDestroy(s *terraform.State) error {
 }
 
 func testAccCheckDigitalOceanRecordAttributes(record *godo.DomainRecord) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if record.Data != "192.168.0.10" {
 			return fmt.Errorf("Bad value: %s", record.Data)
@@ -713,7 +713,7 @@ func testAccCheckDigitalOceanRecordAttributes(record *godo.DomainRecord) resourc
 }
 
 func testAccCheckDigitalOceanRecordAttributesUpdated(record *godo.DomainRecord) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if record.Data != "192.168.0.11" {
 			return fmt.Errorf("Bad value: %s", record.Data)
@@ -760,7 +760,7 @@ func testAccCheckDigitalOceanRecordExists(n string, record *godo.DomainRecord) r
 }
 
 func testAccCheckDigitalOceanRecordAttributesHostname(data string, record *godo.DomainRecord) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if record.Data != data {
 			return fmt.Errorf("Bad value: expected %s, got %s", data, record.Data)

@@ -32,7 +32,7 @@ func DataSourceDigitalOceanSpacesBucket() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanSpacesBucketRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanSpacesBucketRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	name := d.Get("name").(string)
 

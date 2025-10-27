@@ -40,7 +40,7 @@ func DataSourceDigitalOceanDomain() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanDomainRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name := d.Get("name").(string)

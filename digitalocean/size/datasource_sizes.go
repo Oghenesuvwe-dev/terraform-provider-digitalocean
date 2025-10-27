@@ -59,7 +59,7 @@ func DataSourceDigitalOceanSizes() *schema.Resource {
 	return datalist.NewResource(dataListConfig)
 }
 
-func getDigitalOceanSizes(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanSizes(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	sizes := []interface{}{}
@@ -94,7 +94,7 @@ func getDigitalOceanSizes(meta interface{}, extra map[string]interface{}) ([]int
 	return sizes, nil
 }
 
-func flattenDigitalOceanSize(size, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanSize(size, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	s := size.(godo.Size)
 
 	flattenedSize := map[string]interface{}{}

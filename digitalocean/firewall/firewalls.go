@@ -197,7 +197,7 @@ func expandFirewallOutboundRules(rules []interface{}) []godo.OutboundRule {
 	return expandedRules
 }
 
-func firewallPendingChanges(d *schema.ResourceData, firewall *godo.Firewall) []interface{} {
+func firewallPendingChanges(_ *schema.ResourceData, firewall *godo.Firewall) []interface{} {
 	remote := make([]interface{}, 0, len(firewall.PendingChanges))
 	for _, change := range firewall.PendingChanges {
 		rawChange := map[string]interface{}{

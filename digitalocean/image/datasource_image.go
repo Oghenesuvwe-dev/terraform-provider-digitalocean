@@ -46,7 +46,7 @@ func DataSourceDigitalOceanImage() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanImageRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanImageRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var foundImage *godo.Image

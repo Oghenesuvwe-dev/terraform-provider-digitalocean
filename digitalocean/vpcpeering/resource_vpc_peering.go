@@ -173,7 +173,7 @@ func resourceDigitalOceanVPCPeeringDelete(ctx context.Context, d *schema.Resourc
 	return nil
 }
 
-func resourceDigitalOceanVPCPeeringRead(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
+func resourceDigitalOceanVPCPeeringRead(_ context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	vpcPeering, resp, err := client.VPCs.GetVPCPeering(context.Background(), d.Id())

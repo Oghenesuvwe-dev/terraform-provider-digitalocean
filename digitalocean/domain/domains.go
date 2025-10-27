@@ -26,7 +26,7 @@ func domainSchema() map[string]*schema.Schema {
 	}
 }
 
-func getDigitalOceanDomains(meta interface{}, extra map[string]interface{}) ([]interface{}, error) {
+func getDigitalOceanDomains(meta interface{}, _ map[string]interface{}) ([]interface{}, error) {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	opts := &godo.ListOptions{
@@ -62,7 +62,7 @@ func getDigitalOceanDomains(meta interface{}, extra map[string]interface{}) ([]i
 	return allDomains, nil
 }
 
-func flattenDigitalOceanDomain(rawDomain, meta interface{}, extra map[string]interface{}) (map[string]interface{}, error) {
+func flattenDigitalOceanDomain(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
 	domain := rawDomain.(godo.Domain)
 
 	flattenedDomain := map[string]interface{}{

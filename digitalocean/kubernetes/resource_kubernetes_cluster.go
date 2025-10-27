@@ -301,7 +301,7 @@ func ResourceDigitalOceanKubernetesCluster() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.All(
-			customdiff.ForceNewIfChange("version", func(ctx context.Context, old, new, meta interface{}) bool {
+			customdiff.ForceNewIfChange("version", func(_ context.Context, old, new, _ interface{}) bool {
 				// "version" can only be upgraded to newer versions, so we must create a new resource
 				// if it is decreased.
 				newVer, err := version.NewVersion(new.(string))
@@ -468,7 +468,7 @@ func resourceDigitalOceanKubernetesClusterCreate(ctx context.Context, d *schema.
 	return resourceDigitalOceanKubernetesClusterRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanKubernetesClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanKubernetesClusterRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	cluster, resp, err := client.Kubernetes.Get(context.Background(), d.Id())

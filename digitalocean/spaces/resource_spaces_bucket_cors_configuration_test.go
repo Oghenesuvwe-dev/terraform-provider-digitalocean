@@ -192,7 +192,7 @@ func testAccGetS3CorsConfigurationConn() (*s3.S3, error) {
 	return s3conn, nil
 }
 
-func testAccCheckDigitalOceanSpacesBucketCorsConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+func testAccCheckDigitalOceanSpacesBucketCorsConfigurationExists(_ context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {

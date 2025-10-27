@@ -27,7 +27,7 @@ func DataSourceDigitalOceanSSHKey() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanSSHKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanSSHKeyRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	keyList, err := getDigitalOceanSshKeys(meta, nil)
 	if err != nil {
 		return diag.FromErr(err)

@@ -64,7 +64,7 @@ func DataSourceDigitalOceanCertificate() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanCertificateRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	// When the certificate type is lets_encrypt, the certificate

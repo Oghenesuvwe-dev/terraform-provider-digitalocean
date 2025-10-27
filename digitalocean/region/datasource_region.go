@@ -42,7 +42,7 @@ func DataSourceDigitalOceanRegion() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanRegionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanRegionRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	regions, err := getDigitalOceanRegions(meta, nil)
 	if err != nil {
 		return diag.Errorf("Unable to load regions: %s", err)

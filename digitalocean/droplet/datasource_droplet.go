@@ -45,7 +45,7 @@ func DataSourceDigitalOceanDroplet() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanDropletRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanDropletRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	var foundDroplet godo.Droplet

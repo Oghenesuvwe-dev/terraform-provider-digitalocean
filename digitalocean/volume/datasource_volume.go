@@ -71,7 +71,7 @@ func DataSourceDigitalOceanVolume() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanVolumeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanVolumeRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	name := d.Get("name").(string)

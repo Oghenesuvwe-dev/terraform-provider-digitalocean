@@ -74,7 +74,7 @@ func resourceDigitalOceanTagCreate(ctx context.Context, d *schema.ResourceData, 
 	return resourceDigitalOceanTagRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanTagRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	tag, resp, err := client.Tags.Get(context.Background(), d.Id())
@@ -100,7 +100,7 @@ func resourceDigitalOceanTagRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
-func resourceDigitalOceanTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanTagDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting tag: %s", d.Id())

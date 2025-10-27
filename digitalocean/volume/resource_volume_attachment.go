@@ -86,7 +86,7 @@ func resourceDigitalOceanVolumeAttachmentCreate(ctx context.Context, d *schema.R
 	return nil
 }
 
-func resourceDigitalOceanVolumeAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanVolumeAttachmentRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	dropletId := d.Get("droplet_id").(int)

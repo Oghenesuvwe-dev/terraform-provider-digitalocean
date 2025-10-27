@@ -203,7 +203,7 @@ func resourceDigitalOceanDatabaseReplicaCreate(ctx context.Context, d *schema.Re
 	return resourceDigitalOceanDatabaseReplicaRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseReplicaRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseReplicaRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterId := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)
@@ -307,7 +307,7 @@ func resourceDigitalOceanDatabaseReplicaUpdate(ctx context.Context, d *schema.Re
 	return resourceDigitalOceanDatabaseReplicaRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseReplicaImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseReplicaImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(makeReplicaId(s[0], s[1]))
@@ -320,7 +320,7 @@ func resourceDigitalOceanDatabaseReplicaImport(d *schema.ResourceData, meta inte
 	return []*schema.ResourceData{d}, nil
 }
 
-func resourceDigitalOceanDatabaseReplicaDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseReplicaDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterId := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)

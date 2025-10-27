@@ -64,7 +64,7 @@ func resourceDigitalOceanKubernetesNodePoolCreate(ctx context.Context, d *schema
 	return resourceDigitalOceanKubernetesNodePoolRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanKubernetesNodePoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanKubernetesNodePoolRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	pool, resp, err := client.Kubernetes.GetNodePool(context.Background(), d.Get("cluster_id").(string), d.Id())
@@ -127,7 +127,7 @@ func resourceDigitalOceanKubernetesNodePoolUpdate(ctx context.Context, d *schema
 	return resourceDigitalOceanKubernetesNodePoolRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanKubernetesNodePoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanKubernetesNodePoolDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	_, err := client.Kubernetes.DeleteNodePool(context.Background(), d.Get("cluster_id").(string), d.Id())
 	if err != nil {

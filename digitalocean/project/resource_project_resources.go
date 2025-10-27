@@ -79,7 +79,7 @@ func resourceDigitalOceanProjectResourcesUpdate(ctx context.Context, d *schema.R
 	return resourceDigitalOceanProjectResourcesRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanProjectResourcesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanProjectResourcesRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	projectId := d.Id()
@@ -124,7 +124,7 @@ func resourceDigitalOceanProjectResourcesRead(ctx context.Context, d *schema.Res
 	return nil
 }
 
-func resourceDigitalOceanProjectResourcesDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanProjectResourcesDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	projectId := d.Get("project").(string)

@@ -69,7 +69,7 @@ func DataSourceDigitalOceanSpacesBucketObjects() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanSpacesBucketObjectsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanSpacesBucketObjectsRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	region := d.Get("region").(string)
 	client, err := meta.(*config.CombinedConfig).SpacesClient(region)
 	if err != nil {

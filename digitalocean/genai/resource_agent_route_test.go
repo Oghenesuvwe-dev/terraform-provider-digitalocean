@@ -133,7 +133,7 @@ resource "digitalocean_genai_agent_route" "test" {
 `
 }
 
-func testAccCheckDigitalOceanAgentRouteExists(n string, agentRoute *godo.Agent) resource.TestCheckFunc {
+func testAccCheckDigitalOceanAgentRouteExists(n string, _ *godo.Agent) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {

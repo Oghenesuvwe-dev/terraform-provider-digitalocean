@@ -68,7 +68,7 @@ func resourceDigitalOceanReservedIPV6AssignmentCreate(ctx context.Context, d *sc
 
 }
 
-func resourceDigitalOceanReservedIPV6AssignmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanReservedIPV6AssignmentRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	ipAddress := d.Get("ip").(string)
@@ -156,7 +156,7 @@ func newReservedIPV6AssignmentStateRefreshFunc(
 	}
 }
 
-func resourceDigitalOceanReservedIPV6AssignmentImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanReservedIPV6AssignmentImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(id.PrefixedUniqueId(fmt.Sprintf("%s-%s-", s[1], s[0])))

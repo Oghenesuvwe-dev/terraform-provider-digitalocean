@@ -146,7 +146,7 @@ func testAccCheckDataSourceDigitalOceanAgentExists(n string, agent *godo.Agent) 
 	}
 }
 
-func testAccCheckDataSourceDigitalOceanAgentConfig_complete(name, description, instruction, model_uuid, project_id, region string) string {
+func testAccCheckDataSourceDigitalOceanAgentConfig_complete(name, description, instruction, model_uuid, project_id, _ string) string {
 	return fmt.Sprintf(`
 resource "digitalocean_genai_agent" "foo" {
   name        = "%s"

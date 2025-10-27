@@ -48,7 +48,7 @@ func ResourceDigitalOceanDatabaseUser() *schema.Resource {
 					godo.SQLAuthPluginCachingSHA2,
 				}, false),
 				// Prevent diffs when default is used and not specified in the config.
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return old == godo.SQLAuthPluginCachingSHA2 && new == ""
 				},
 			},
@@ -142,7 +142,7 @@ func userOpenSearchACLSchema() *schema.Resource {
 	}
 }
 
-func resourceDigitalOceanDatabaseUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseUserCreate(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 
@@ -184,7 +184,7 @@ func resourceDigitalOceanDatabaseUserCreate(ctx context.Context, d *schema.Resou
 	return nil
 }
 
-func resourceDigitalOceanDatabaseUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseUserRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)
@@ -269,7 +269,7 @@ func resourceDigitalOceanDatabaseUserUpdate(ctx context.Context, d *schema.Resou
 	return resourceDigitalOceanDatabaseUserRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseUserDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	clusterID := d.Get("cluster_id").(string)
 	name := d.Get("name").(string)
@@ -289,7 +289,7 @@ func resourceDigitalOceanDatabaseUserDelete(ctx context.Context, d *schema.Resou
 	return nil
 }
 
-func resourceDigitalOceanDatabaseUserImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+func resourceDigitalOceanDatabaseUserImport(d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
 	if strings.Contains(d.Id(), ",") {
 		s := strings.Split(d.Id(), ",")
 		d.SetId(makeDatabaseUserID(s[0], s[1]))

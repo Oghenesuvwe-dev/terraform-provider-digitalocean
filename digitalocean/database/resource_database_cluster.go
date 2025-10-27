@@ -49,7 +49,7 @@ func ResourceDigitalOceanDatabaseCluster() *schema.Resource {
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					// Suppress diff if switching between redis and valkey
 					cachingEngines := map[string]bool{
 						redisDBEngineSlug:  true,
@@ -68,7 +68,7 @@ func ResourceDigitalOceanDatabaseCluster() *schema.Resource {
 				Optional: true,
 				// When Redis clusters are forced to upgrade, this prevents attempting
 				// to recreate clusters specifying the previous version in their config.
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, d *schema.ResourceData) bool {
 					remoteVersion, _ := strconv.Atoi(old)
 					configVersion, _ := strconv.Atoi(new)
 					engine := d.Get("engine").(string)
@@ -115,7 +115,7 @@ func ResourceDigitalOceanDatabaseCluster() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 							// Prevent a diff when seconds in response, e.g: "13:00" -> "13:00:00"
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 								newSplit := strings.Split(new, ":")
 								oldSplit := strings.Split(old, ":")
 								if len(newSplit) == 3 {
@@ -285,7 +285,7 @@ func ResourceDigitalOceanDatabaseCluster() *schema.Resource {
 }
 
 func transitionVersionToRequired() schema.CustomizeDiffFunc {
-	return schema.CustomizeDiffFunc(func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
+	return schema.CustomizeDiffFunc(func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 		engine := diff.Get("engine")
 		_, hasVersion := diff.GetOk("version")
 		old, _ := diff.GetChange("version")
@@ -303,7 +303,7 @@ func transitionVersionToRequired() schema.CustomizeDiffFunc {
 }
 
 func validateExclusiveAttributes() schema.CustomizeDiffFunc {
-	return schema.CustomizeDiffFunc(func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
+	return schema.CustomizeDiffFunc(func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 		engine := diff.Get("engine")
 		_, hasEvictionPolicy := diff.GetOk("eviction_policy")
 		_, hasSqlMode := diff.GetOk("sql_mode")
@@ -521,7 +521,7 @@ func resourceDigitalOceanDatabaseClusterUpdate(ctx context.Context, d *schema.Re
 	return resourceDigitalOceanDatabaseClusterRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanDatabaseClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseClusterRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	database, resp, err := client.Databases.Get(context.Background(), d.Id())
@@ -592,7 +592,7 @@ func resourceDigitalOceanDatabaseClusterRead(ctx context.Context, d *schema.Reso
 	return nil
 }
 
-func resourceDigitalOceanDatabaseClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanDatabaseClusterDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting database cluster: %s", d.Id())

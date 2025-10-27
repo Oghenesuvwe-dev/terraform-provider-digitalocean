@@ -179,7 +179,7 @@ func testAccCheckDigitalOceanDatabaseConnectionPoolExists(n string, database *go
 }
 
 func testAccCheckDigitalOceanDatabaseConnectionPoolAttributes(databaseConnectionPool *godo.DatabasePool, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if databaseConnectionPool.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseConnectionPool.Name)

@@ -52,7 +52,7 @@ func DataSourceDigitalOceanAccount() *schema.Resource {
 	}
 }
 
-func dataSourceDigitalOceanAccountRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func dataSourceDigitalOceanAccountRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	account, _, err := client.Account.Get(context.Background())

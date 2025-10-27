@@ -92,7 +92,7 @@ func resourceDigitalOceanContainerRegistryCreate(ctx context.Context, d *schema.
 	return resourceDigitalOceanContainerRegistryRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanContainerRegistryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanContainerRegistryRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	reg, resp, err := client.Registry.Get(context.Background())
@@ -139,7 +139,7 @@ func resourceDigitalOceanContainerRegistryUpdate(ctx context.Context, d *schema.
 	return resourceDigitalOceanContainerRegistryRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanContainerRegistryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanContainerRegistryDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	log.Printf("[INFO] Deleting container registry: %s", d.Id())

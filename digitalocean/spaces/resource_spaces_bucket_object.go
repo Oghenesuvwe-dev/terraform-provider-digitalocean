@@ -239,7 +239,7 @@ func resourceDigitalOceanSpacesBucketObjectCreate(ctx context.Context, d *schema
 	return resourceDigitalOceanSpacesBucketObjectPut(ctx, d, meta)
 }
 
-func resourceDigitalOceanSpacesBucketObjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSpacesBucketObjectRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	s3conn, err := s3connFromResourceData(d, meta)
 	if err != nil {
 		return diag.FromErr(err)
@@ -332,7 +332,7 @@ func resourceDigitalOceanSpacesBucketObjectUpdate(ctx context.Context, d *schema
 	return resourceDigitalOceanSpacesBucketObjectRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanSpacesBucketObjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanSpacesBucketObjectDelete(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	s3conn, err := s3connFromResourceData(d, meta)
 	if err != nil {
 		return diag.FromErr(err)
@@ -356,7 +356,7 @@ func resourceDigitalOceanSpacesBucketObjectDelete(ctx context.Context, d *schema
 	return nil
 }
 
-func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors []error) {
+func validateMetadataIsLowerCase(v interface{}, _ string) (ws []string, errors []error) {
 	value := v.(map[string]interface{})
 
 	for k := range value {
@@ -369,9 +369,9 @@ func validateMetadataIsLowerCase(v interface{}, k string) (ws []string, errors [
 }
 
 func resourceDigitalOceanSpacesBucketObjectCustomizeDiff(
-	ctx context.Context,
+	_ context.Context,
 	d *schema.ResourceDiff,
-	meta interface{},
+	_ interface{},
 ) error {
 	if d.HasChange("etag") {
 		d.SetNewComputed("version_id")

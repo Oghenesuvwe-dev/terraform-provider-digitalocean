@@ -219,7 +219,7 @@ func testAccCheckDigitalOceanDatabaseReplicaExists(n string, database *godo.Data
 }
 
 func testAccCheckDigitalOceanDatabaseReplicaAttributes(databaseReplica *godo.DatabaseReplica, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return func(_ *terraform.State) error {
 
 		if databaseReplica.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseReplica.Name)

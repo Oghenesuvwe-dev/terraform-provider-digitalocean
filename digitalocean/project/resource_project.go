@@ -56,7 +56,7 @@ func ResourceDigitalOceanProject() *schema.Resource {
 				Optional:     true,
 				Description:  "the environment of the project's resources",
 				ValidateFunc: validation.StringInSlice([]string{"development", "staging", "production"}, true),
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: func(_, old, new string, _ *schema.ResourceData) bool {
 					return strings.EqualFold(old, new)
 				},
 			},
@@ -166,7 +166,7 @@ func resourceDigitalOceanProjectCreate(ctx context.Context, d *schema.ResourceDa
 	return resourceDigitalOceanProjectRead(ctx, d, meta)
 }
 
-func resourceDigitalOceanProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+func resourceDigitalOceanProjectRead(_ context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*config.CombinedConfig).GodoClient()
 
 	project, resp, err := client.Projects.Get(context.Background(), d.Id())
