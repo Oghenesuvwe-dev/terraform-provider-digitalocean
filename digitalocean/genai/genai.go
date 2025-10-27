@@ -49,7 +49,6 @@ func getDigitalOceanAgents(meta interface{}, extra map[string]interface{}) ([]in
 
 	}
 	return allAgents, nil
-
 }
 
 func flattenDigitalOceanAgent(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
@@ -1102,7 +1101,6 @@ func getDigitalOceanAgentVersions(meta interface{}, extra map[string]interface{}
 
 	}
 	return allAgentVersions, nil
-
 }
 
 func flattenDigitalOceanAgentVersion(rawDomain, _ interface{}, _ map[string]interface{}) (map[string]interface{}, error) {
@@ -1168,7 +1166,6 @@ func flattenDigitalOceanAgentVersion(rawDomain, _ interface{}, _ map[string]inte
 	}
 
 	return result, nil
-
 }
 
 func flattenAttachedChildAgents(childAgents []*godo.AttachedChildAgent) []interface{} {
@@ -1208,6 +1205,7 @@ func flattenAttachedFunctionsSchema(functions []*godo.AgentFunction) []interface
 
 	return result
 }
+
 func flattenAttachedGuardRails(guardrails []*godo.AgentGuardrail) []interface{} {
 	if guardrails == nil {
 		return []interface{}{}
@@ -1226,6 +1224,7 @@ func flattenAttachedGuardRails(guardrails []*godo.AgentGuardrail) []interface{} 
 
 	return result
 }
+
 func flattenAttachedKnowledgeBases(kbs []*godo.KnowledgeBase) []interface{} {
 	if kbs == nil {
 		return []interface{}{}

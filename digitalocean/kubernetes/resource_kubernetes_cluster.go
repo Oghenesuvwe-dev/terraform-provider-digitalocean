@@ -19,9 +19,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-var (
-	MultipleNodePoolImportError = fmt.Errorf("Cluster contains multiple node pools. Manually add the `%s` tag to the pool that should be used as the default. Additional pools must be imported separately as 'digitalocean_kubernetes_node_pool' resources.", DigitaloceanKubernetesDefaultNodePoolTag)
-)
+var MultipleNodePoolImportError = fmt.Errorf("Cluster contains multiple node pools. Manually add the `%s` tag to the pool that should be used as the default. Additional pools must be imported separately as 'digitalocean_kubernetes_node_pool' resources.", DigitaloceanKubernetesDefaultNodePoolTag)
 
 const (
 	controlPlaneFirewallField         = "control_plane_firewall"
@@ -139,7 +137,8 @@ func ResourceDigitalOceanKubernetesCluster() *schema.Resource {
 								"thursday",
 								"friday",
 								"saturday",
-								"sunday"},
+								"sunday",
+							},
 								true,
 							),
 						},

@@ -82,7 +82,6 @@ func dataSourceDigitalOceanDropletRead(_ context.Context, d *schema.ResourceData
 		}
 
 		droplet, err := findDropletByName(dropletList, v.(string))
-
 		if err != nil {
 			return diag.FromErr(err)
 		}

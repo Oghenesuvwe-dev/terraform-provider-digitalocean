@@ -52,7 +52,8 @@ func ResourceDigitalOceanDatabaseConnectionPool() *schema.Resource {
 				ValidateFunc: validation.StringInSlice([]string{
 					"session",
 					"transaction",
-					"statement"}, false),
+					"statement",
+				}, false),
 			},
 
 			"size": {

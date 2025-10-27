@@ -952,7 +952,6 @@ func testAccCheckDigitalOceanLoadbalancerExists(n string, loadbalancer *godo.Loa
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
 		lb, _, err := client.LoadBalancers.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

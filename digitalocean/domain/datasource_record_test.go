@@ -59,7 +59,6 @@ data "digitalocean_record" "foobar" {
 
 func testAccCheckDataSourceDigitalOceanRecordAttributes(record *godo.DomainRecord, name string, r_type string) resource.TestCheckFunc {
 	return func(_ *terraform.State) error {
-
 		if record.Name != name {
 			return fmt.Errorf("Bad name: %s", record.Name)
 		}

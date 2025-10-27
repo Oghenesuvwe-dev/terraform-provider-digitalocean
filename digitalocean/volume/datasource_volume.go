@@ -17,7 +17,6 @@ func DataSourceDigitalOceanVolume() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDigitalOceanVolumeRead,
 		Schema: map[string]*schema.Schema{
-
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
@@ -92,7 +91,6 @@ func dataSourceDigitalOceanVolumeRead(_ context.Context, d *schema.ResourceData,
 
 	for {
 		volumes, resp, err := client.Storage.ListVolumes(context.Background(), opts)
-
 		if err != nil {
 			return diag.Errorf("Error retrieving volumes: %s", err)
 		}
@@ -112,7 +110,6 @@ func dataSourceDigitalOceanVolumeRead(_ context.Context, d *schema.ResourceData,
 	}
 
 	volume, err := findVolumeByName(volumeList, name)
-
 	if err != nil {
 		return diag.FromErr(err)
 	}

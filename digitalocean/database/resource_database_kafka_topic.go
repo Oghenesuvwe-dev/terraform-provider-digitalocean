@@ -389,6 +389,7 @@ func resourceDigitalOceanDatabaseKafkaTopicDelete(ctx context.Context, d *schema
 	d.SetId("")
 	return nil
 }
+
 func flattenTopicConfig(config *godo.TopicConfig) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0)
 	item := make(map[string]interface{})

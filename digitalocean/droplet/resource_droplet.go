@@ -21,9 +21,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
-var (
-	errDropletBackupPolicy = errors.New("backup_policy can only be set when backups are enabled")
-)
+var errDropletBackupPolicy = errors.New("backup_policy can only be set when backups are enabled")
 
 func ResourceDigitalOceanDroplet() *schema.Resource {
 	return &schema.Resource{
@@ -573,7 +571,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 		}
 
 		_, _, err = client.DropletActions.PowerOn(context.Background(), id)
-
 		if err != nil {
 			return diag.Errorf(
 				"Error powering on droplet (%s) after resize: %s", d.Id(), err)
@@ -591,7 +588,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 
 		// Rename the droplet
 		_, _, err = client.DropletActions.Rename(context.Background(), id, newName.(string))
-
 		if err != nil {
 			return diag.Errorf(
 				"Error renaming droplet (%s): %s", d.Id(), err)
@@ -600,7 +596,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 		// Wait for the name to change
 		_, err = waitForDropletAttribute(
 			ctx, d, newName.(string), []string{"", oldName.(string)}, "name", schema.TimeoutUpdate, meta)
-
 		if err != nil {
 			return diag.Errorf(
 				"Error waiting for rename droplet (%s) to finish: %s", d.Id(), err)
@@ -681,7 +676,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 	// we only check if it needs to be enabled
 	if d.HasChange("private_networking") && d.Get("private_networking").(bool) {
 		_, _, err = client.DropletActions.EnablePrivateNetworking(context.Background(), id)
-
 		if err != nil {
 			return diag.Errorf(
 				"Error enabling private networking for droplet (%s): %s", d.Id(), err)
@@ -690,7 +684,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 		// Wait for the private_networking to turn on
 		_, err = waitForDropletAttribute(
 			ctx, d, "true", []string{"", "false"}, "private_networking", schema.TimeoutUpdate, meta)
-
 		if err != nil {
 			return diag.Errorf(
 				"Error waiting for private networking to be enabled on for droplet (%s): %s", d.Id(), err)
@@ -708,7 +701,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 		// Wait for ipv6 to turn on
 		_, err = waitForDropletAttribute(
 			ctx, d, "true", []string{"", "false"}, "ipv6", schema.TimeoutUpdate, meta)
-
 		if err != nil {
 			return diag.Errorf(
 				"Error waiting for ipv6 to be turned on for droplet (%s): %s", d.Id(), err)
@@ -763,7 +755,6 @@ func resourceDigitalOceanDropletUpdate(ctx context.Context, d *schema.ResourceDa
 			err := detachVolumeIDOnDroplet(d, volumeID, meta)
 			if err != nil {
 				return diag.Errorf("Error detaching volume %q on droplet %s: %s", volumeID, d.Id(), err)
-
 			}
 		}
 	}
@@ -786,7 +777,6 @@ func resourceDigitalOceanDropletDelete(ctx context.Context, d *schema.ResourceDa
 
 	_, err = waitForDropletAttribute(
 		ctx, d, "false", []string{"", "true"}, "locked", schema.TimeoutDelete, meta)
-
 	if err != nil {
 		return diag.Errorf(
 			"Error waiting for droplet to be unlocked for destroy (%s): %s", d.Id(), err)
@@ -854,7 +844,8 @@ func waitForDropletDestroy(ctx context.Context, d *schema.ResourceData, meta int
 }
 
 func waitForDropletAttribute(
-	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, timeoutKey string, meta interface{}) (interface{}, error) {
+	ctx context.Context, d *schema.ResourceData, target string, pending []string, attribute string, timeoutKey string, meta interface{},
+) (interface{}, error) {
 	// Wait for the droplet so we can get the networking attributes
 	// that show up after a while
 	log.Printf(
@@ -881,7 +872,8 @@ func waitForDropletAttribute(
 // TODO This function still needs a little more refactoring to make it
 // cleaner and more efficient
 func dropletStateRefreshFunc(
-	_ context.Context, d *schema.ResourceData, attribute string, meta interface{}) retry.StateRefreshFunc {
+	_ context.Context, d *schema.ResourceData, attribute string, meta interface{},
+) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
 		id, err := strconv.Atoi(d.Id())

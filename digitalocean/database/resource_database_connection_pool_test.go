@@ -68,7 +68,6 @@ func TestAccDigitalOceanDatabaseConnectionPool_Basic(t *testing.T) {
 }
 
 func TestAccDigitalOceanDatabaseConnectionPool_InboundUser(t *testing.T) {
-
 	var databaseConnectionPool godo.DatabasePool
 	databaseName := acceptance.RandomTestName()
 	databaseConnectionPoolName := acceptance.RandomTestName()
@@ -163,7 +162,6 @@ func testAccCheckDigitalOceanDatabaseConnectionPoolExists(n string, database *go
 		name := rs.Primary.Attributes["name"]
 
 		foundDatabaseConnectionPool, _, err := client.Databases.GetPool(context.Background(), clusterId, name)
-
 		if err != nil {
 			return err
 		}
@@ -180,7 +178,6 @@ func testAccCheckDigitalOceanDatabaseConnectionPoolExists(n string, database *go
 
 func testAccCheckDigitalOceanDatabaseConnectionPoolAttributes(databaseConnectionPool *godo.DatabasePool, name string) resource.TestCheckFunc {
 	return func(_ *terraform.State) error {
-
 		if databaseConnectionPool.Name != name {
 			return fmt.Errorf("Bad name: %s", databaseConnectionPool.Name)
 		}

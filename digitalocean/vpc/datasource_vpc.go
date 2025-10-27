@@ -118,7 +118,6 @@ func listVPCs(client *godo.Client) ([]*godo.VPC, error) {
 
 	for {
 		vpcs, resp, err := client.VPCs.List(context.Background(), opts)
-
 		if err != nil {
 			return vpcList, fmt.Errorf("Error retrieving VPCs: %s", err)
 		}

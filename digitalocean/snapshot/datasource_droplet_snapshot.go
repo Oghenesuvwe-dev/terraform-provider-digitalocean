@@ -88,7 +88,6 @@ func dataSourceDigitalOceanDropletSnapshotRead(_ context.Context, d *schema.Reso
 
 	for {
 		snapshots, resp, err := client.Snapshots.ListDroplet(context.Background(), opts)
-
 		if err != nil {
 			return diag.Errorf("Error retrieving Droplet snapshots: %s", err)
 		}

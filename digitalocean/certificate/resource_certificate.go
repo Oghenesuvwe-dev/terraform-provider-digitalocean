@@ -199,7 +199,6 @@ func resourceDigitalOceanCertificateCreate(ctx context.Context, d *schema.Resour
 			return diag.Errorf("`leaf_certificate` is required for when type is `custom` or empty")
 		}
 	} else if certificateType == "lets_encrypt" {
-
 		if _, ok := d.GetOk("domains"); !ok {
 			return diag.Errorf("`domains` is required for when type is `lets_encrypt`")
 		}
@@ -278,7 +277,6 @@ func resourceDigitalOceanCertificateRead(_ context.Context, d *schema.ResourceDa
 	}
 
 	return nil
-
 }
 
 func resourceDigitalOceanCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -313,7 +311,6 @@ func resourceDigitalOceanCertificateDelete(ctx context.Context, d *schema.Resour
 	}
 
 	return nil
-
 }
 
 func expandDigitalOceanCertificateDomains(domains []interface{}) []string {
@@ -343,7 +340,6 @@ func flattenDigitalOceanCertificateDomains(domains []string) *schema.Set {
 func newCertificateStateRefreshFunc(d *schema.ResourceData, meta interface{}) retry.StateRefreshFunc {
 	client := meta.(*config.CombinedConfig).GodoClient()
 	return func() (interface{}, string, error) {
-
 		// Retrieve the certificate properties
 		uuid := d.Get("uuid").(string)
 		cert, _, err := client.Certificates.Get(context.Background(), uuid)

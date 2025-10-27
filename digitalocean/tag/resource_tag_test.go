@@ -66,7 +66,6 @@ func testAccCheckDigitalOceanTagDestroy(s *terraform.State) error {
 
 func testAccCheckDigitalOceanTagAttributes(tag *godo.Tag) resource.TestCheckFunc {
 	return func(_ *terraform.State) error {
-
 		if tag.Name != "foobar" {
 			return fmt.Errorf("Bad name: %s", tag.Name)
 		}
@@ -91,7 +90,6 @@ func testAccCheckDigitalOceanTagExists(n string, tag *godo.Tag) resource.TestChe
 
 		// Try to find the tag
 		foundTag, _, err := client.Tags.Get(context.Background(), rs.Primary.ID)
-
 		if err != nil {
 			return err
 		}

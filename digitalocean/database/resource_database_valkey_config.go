@@ -167,7 +167,6 @@ func resourceDigitalOceanDatabaseValkeyConfigUpdate(ctx context.Context, d *sche
 }
 
 func updateValkeyConfig(ctx context.Context, d *schema.ResourceData, client *godo.Client) error {
-
 	clusterID := d.Get("cluster_id").(string)
 
 	// Check if the cluster is active before updating config
