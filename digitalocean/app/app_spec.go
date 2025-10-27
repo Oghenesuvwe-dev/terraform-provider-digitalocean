@@ -1374,66 +1374,66 @@ func flattenAppSpec(d *schema.ResourceData, spec *godo.AppSpec) []map[string]int
 
 	if spec != nil {
 		r := make(map[string]interface{})
-		r["name"] = (*spec).Name
-		r["region"] = (*spec).Region
-		r["features"] = (*spec).Features
-		r["disable_edge_cache"] = (*spec).DisableEdgeCache
-		r["disable_email_obfuscation"] = (*spec).DisableEmailObfuscation
-		r["enhanced_threat_control_enabled"] = (*spec).EnhancedThreatControlEnabled
+		r["name"] = spec.Name
+		r["region"] = spec.Region
+		r["features"] = spec.Features
+		r["disable_edge_cache"] = spec.DisableEdgeCache
+		r["disable_email_obfuscation"] = spec.DisableEmailObfuscation
+		r["enhanced_threat_control_enabled"] = spec.EnhancedThreatControlEnabled
 
-		if len((*spec).Domains) > 0 {
-			r["domains"] = flattenAppDomainSpec((*spec).Domains)
+		if len(spec.Domains) > 0 {
+			r["domains"] = flattenAppDomainSpec(spec.Domains)
 			if _, ok := d.GetOk("spec.0.domain"); ok {
-				r["domain"] = flattenAppSpecDomains((*spec).Domains)
+				r["domain"] = flattenAppSpecDomains(spec.Domains)
 			}
 		}
 
-		if len((*spec).Services) > 0 {
-			r["service"] = flattenAppSpecServices((*spec).Services)
+		if len(spec.Services) > 0 {
+			r["service"] = flattenAppSpecServices(spec.Services)
 		}
 
-		if len((*spec).StaticSites) > 0 {
-			r["static_site"] = flattenAppSpecStaticSites((*spec).StaticSites)
+		if len(spec.StaticSites) > 0 {
+			r["static_site"] = flattenAppSpecStaticSites(spec.StaticSites)
 		}
 
-		if len((*spec).Workers) > 0 {
-			r["worker"] = flattenAppSpecWorkers((*spec).Workers)
+		if len(spec.Workers) > 0 {
+			r["worker"] = flattenAppSpecWorkers(spec.Workers)
 		}
 
-		if len((*spec).Jobs) > 0 {
-			r["job"] = flattenAppSpecJobs((*spec).Jobs)
+		if len(spec.Jobs) > 0 {
+			r["job"] = flattenAppSpecJobs(spec.Jobs)
 		}
 
-		if len((*spec).Functions) > 0 {
-			r["function"] = flattenAppSpecFunctions((*spec).Functions)
+		if len(spec.Functions) > 0 {
+			r["function"] = flattenAppSpecFunctions(spec.Functions)
 		}
 
-		if len((*spec).Databases) > 0 {
-			r["database"] = flattenAppSpecDatabases((*spec).Databases)
+		if len(spec.Databases) > 0 {
+			r["database"] = flattenAppSpecDatabases(spec.Databases)
 		}
 
-		if len((*spec).Envs) > 0 {
-			r["env"] = flattenAppEnvs((*spec).Envs)
+		if len(spec.Envs) > 0 {
+			r["env"] = flattenAppEnvs(spec.Envs)
 		}
 
-		if len((*spec).Alerts) > 0 {
-			r["alert"] = flattenAppAlerts((*spec).Alerts)
+		if len(spec.Alerts) > 0 {
+			r["alert"] = flattenAppAlerts(spec.Alerts)
 		}
 
-		if (*spec).Ingress != nil {
-			r["ingress"] = flattenAppIngress((*spec).Ingress)
+		if spec.Ingress != nil {
+			r["ingress"] = flattenAppIngress(spec.Ingress)
 		}
 
-		if (*spec).Egress != nil {
-			r["egress"] = flattenAppEgress((*spec).Egress)
+		if spec.Egress != nil {
+			r["egress"] = flattenAppEgress(spec.Egress)
 		}
 
 		// Handle maintenance
-		if (*spec).Maintenance != nil {
-			r["maintenance"] = flattenAppMaintenance((*spec).Maintenance)
+		if spec.Maintenance != nil {
+			r["maintenance"] = flattenAppMaintenance(spec.Maintenance)
 		}
-		if (*spec).Vpc != nil {
-			r["vpc"] = flattenAppVPC((*spec).Vpc)
+		if spec.Vpc != nil {
+			r["vpc"] = flattenAppVPC(spec.Vpc)
 		}
 
 		result = append(result, r)
@@ -1794,9 +1794,9 @@ func flattenAppGitHubSourceSpec(spec *godo.GitHubSourceSpec) []interface{} {
 	if spec != nil {
 
 		r := make(map[string]interface{})
-		r["repo"] = (*spec).Repo
-		r["branch"] = (*spec).Branch
-		r["deploy_on_push"] = (*spec).DeployOnPush
+		r["repo"] = spec.Repo
+		r["branch"] = spec.Branch
+		r["deploy_on_push"] = spec.DeployOnPush
 
 		result = append(result, r)
 	}
@@ -1822,9 +1822,9 @@ func flattenAppGitLabSourceSpec(spec *godo.GitLabSourceSpec) []interface{} {
 	if spec != nil {
 
 		r := make(map[string]interface{})
-		r["repo"] = (*spec).Repo
-		r["branch"] = (*spec).Branch
-		r["deploy_on_push"] = (*spec).DeployOnPush
+		r["repo"] = spec.Repo
+		r["branch"] = spec.Branch
+		r["deploy_on_push"] = spec.DeployOnPush
 
 		result = append(result, r)
 	}
@@ -1850,9 +1850,9 @@ func flattenAppBitBucketSourceSpec(spec *godo.BitbucketSourceSpec) []interface{}
 	if spec != nil {
 
 		r := make(map[string]interface{})
-		r["repo"] = (*spec).Repo
-		r["branch"] = (*spec).Branch
-		r["deploy_on_push"] = (*spec).DeployOnPush
+		r["repo"] = spec.Repo
+		r["branch"] = spec.Branch
+		r["deploy_on_push"] = spec.DeployOnPush
 
 		result = append(result, r)
 	}
@@ -1877,8 +1877,8 @@ func flattenAppGitSourceSpec(spec *godo.GitSourceSpec) []interface{} {
 	if spec != nil {
 
 		r := make(map[string]interface{})
-		r["branch"] = (*spec).Branch
-		r["repo_clone_url"] = (*spec).RepoCloneURL
+		r["branch"] = spec.Branch
+		r["repo_clone_url"] = spec.RepoCloneURL
 
 		result = append(result, r)
 	}
@@ -1914,12 +1914,12 @@ func flattenAppImageSourceSpec(i *godo.ImageSourceSpec) []interface{} {
 
 	if i != nil {
 		r := make(map[string]interface{})
-		r["registry_type"] = string((*i).RegistryType)
-		r["registry"] = (*i).Registry
-		r["repository"] = (*i).Repository
-		r["tag"] = (*i).Tag
-		r["digest"] = (*i).Digest
-		r["registry_credentials"] = (*i).RegistryCredentials
+		r["registry_type"] = string(i.RegistryType)
+		r["registry"] = i.Registry
+		r["repository"] = i.Repository
+		r["tag"] = i.Tag
+		r["digest"] = i.Digest
+		r["registry_credentials"] = i.RegistryCredentials
 
 		if i.DeployOnPush != nil {
 			docrPush := make([]interface{}, 1)

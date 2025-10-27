@@ -106,7 +106,7 @@ func takeDropletSnapshot(_ *testing.T, name string, droplet *godo.Droplet, snaps
 	return func(_ *terraform.State) error {
 		client := acceptance.TestAccProvider.Meta().(*config.CombinedConfig).GodoClient()
 
-		action, _, err := client.DropletActions.Snapshot(context.Background(), (*droplet).ID, name)
+		action, _, err := client.DropletActions.Snapshot(context.Background(), droplet.ID, name)
 		if err != nil {
 			return err
 		}
@@ -115,7 +115,7 @@ func takeDropletSnapshot(_ *testing.T, name string, droplet *godo.Droplet, snaps
 			return err
 		}
 
-		retrieveDroplet, _, err := client.Droplets.Get(context.Background(), (*droplet).ID)
+		retrieveDroplet, _, err := client.Droplets.Get(context.Background(), droplet.ID)
 		if err != nil {
 			return err
 		}
